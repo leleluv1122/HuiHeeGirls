@@ -1,0 +1,86 @@
+/* body { font-family: 굴림체; } */
+
+/* thead th { background-color: #eee; } */
+
+/* tr:hover td { background-color: #ffe; cursor: pointer; } */
+
+/* input.form-control.w100 { width: 100px; }
+input.form-control.w200 { width: 200px; }
+input.form-control.w300 { width: 300px; }
+input.form-control.w400 { width: 400px; }
+select.form-control.w100 { width: 100px; }
+select.form-control.w200 { width: 200px; }
+select.form-control.w300 { width: 300px; }
+select.form-control.w400 { width: 400px; }
+
+.mt5 { margin-top: 5px; }
+.mb5 { margin-bottom: 5px; }
+
+.mr20 { margin-right: 20px; }
+.ml20 { margin-left: 20px; }
+
+div.container {
+	margin-left: auto;
+	margin-right: auto;
+	width: 900px;
+}
+
+td {
+	padding: 5px;
+	line-height: 180%;
+} */
+
+td:nth-child(1) {
+	width: 15%;
+	vertical-align: top;
+	border-right: 1px solid #ddd;
+}
+
+td:nth-child(2) {
+	width: 85%;
+}
+
+img {
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+/* div.menu {
+	background: linear-gradient(#eee, #fff);
+	font-weight: bold;
+	padding: 12px;
+	border-radius: 8px;
+} */
+
+/* div.menu span {
+	margin-right: 50px;
+} */
+
+div.footer {
+	border-top: 1px solid #ddd;
+	padding: 30px 10px;
+}
+
+div.footer img {
+	margin-right: 20px;
+}
+
+div.footer div:nth-child(2) {
+	font: normal 9pt 굴림;
+	color: #666;
+	margin-top: 10px;
+}
+
+div.footer div:nth-child(3) {
+	font: normal 9pt arial;
+	color: #aaa;
+	margin-top: 10px;
+}
+body {
+
+	padding-top: 0px;
+
+	padding-bottom: 30px;
+
+}

@@ -1,0 +1,8 @@
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+.navbar-brand, h1, h2, h4, h4 {
+	font-family:'Jeju Gothic';
+}
+body {
+	font-family:'Jeju Gothic';
+	font-size: 18px;
+}
