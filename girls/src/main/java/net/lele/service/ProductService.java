@@ -12,9 +12,10 @@ import net.lele.repository.ProductRepository;
 public class ProductService {
 	@Autowired
 	ProductRepository productRepository;
-	
-	public List<Product> findAll(){
+
+	public List<Product> findAll() {
 		return productRepository.findAll();
 	}
-
+	
+	
 }

@@ -39,7 +39,8 @@ table {
 			<tr>
 				<td style="width: 85%;">
 					<h1>글작성</h1>
-					<hr /> <form:form method="post" modelAttribute="board">
+					<hr /> 
+					<form:form method="post" modelAttribute="board">
 						<div class="form-group">
 							<label>제목:</label>
 							<form:input path="title" class="form-control w200" />

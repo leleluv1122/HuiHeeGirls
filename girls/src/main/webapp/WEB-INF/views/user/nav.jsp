@@ -62,7 +62,7 @@
 						</sec:authorize>
 					</div></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${R}guest/boardlist">게시판</a></li>
+					href="${R}guest/boardlist">자유게시판</a></li>
 
 			</ul>
 		</div>

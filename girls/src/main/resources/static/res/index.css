@@ -1,4 +1,11 @@
-/* body { font-family: 援대┝泥�; } */
+/* @font-face{
+	font-family:'poor'
+	 src: url('/res/poor.ttf')
+} */
+/* body{
+	font-family:poor;
+	font-size:10px;
+} */
 thead th {
 	background-color: #eee;
 }

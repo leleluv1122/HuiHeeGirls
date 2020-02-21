@@ -15,48 +15,67 @@
 	rel="stylesheet" media="screen">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <link rel="stylesheet" href="/res/index.css"> -->
+<link rel="stylesheet" href="/res/index.css">
 
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-table {
+/* table {
 	table-layout: fixed;
 	word-break: break-all;
 }
-
+ */
+/*  div { width: 800px; padding: 5px; line-height: 180%; } */
 .imgg {
-	width: 200px;
+	width: 250px;
 	height: auto;
+}
+
+.pl {
+	width: 220px;
+	heigjt: 280px;
 }
 </style>
 
 <title>히히걸즈</title>
+<style>
+.pl {
+	margin:10px;
+}
+</style>
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
 		<c:forEach var="p" items="${product}">
 			<c:if test="${p.category.id ==idd }">
-				<table>
-					<tr>
-						<td><img src="/images/${p.image_url}" class="imgg"></td>
-					</tr>
-					<tr>
-						<td>${p.name}</td>
-					</tr>
-					<tr>
-						<td>가격:</td>
-						<td><fmt:formatNumber value="${p.price}"
-								pattern="###,###,###" /></td>
-						<td>색상:</td>
-						<td>${p.color}</td>
-					</tr>
-
-				</table>
+				<div class="pl">
+					<table>
+						<tr>
+							<td><a href="/guest/productdetail/${p.id}"><img
+									src="/images/${p.image_url}" class="imgg"></a></td>
+						</tr>
+						<tr>
+							<td><a href="/guest/productdetail/${p.id}"><span
+									style="font-size: 13px; color: #585858; font-weight: bold;">${p.name}</span></a></td>
+						</tr>
+						<tr>
+							<td><span style="font-size: 11px; color: #999999;">${p.description}</span></td>
+						</tr>
+						<tr>
+							<td><span
+								style="font-size: 12px; color: #333333; font-weight: bold;"><fmt:formatNumber
+										value="${p.price}" pattern="###,###,###" />원</span></td>
+						</tr>
+						<tr>
+							<td><label style="font-size: 11px;">${p.color}</label></td>
+						</tr>
+					</table>
+				</div>
 			</c:if>
 		</c:forEach>
 	</div>
+	<br />
 	<%@ include file="bottom.jsp"%>
 </body>
 </html>
