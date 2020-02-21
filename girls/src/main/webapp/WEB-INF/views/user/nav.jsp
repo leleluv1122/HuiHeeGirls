@@ -28,7 +28,7 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
+		<nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#78C2AD;"> <a
 			class="navbar-brand" style="font-size: 3em;" href="${R}guest/index">히히걸즈</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"

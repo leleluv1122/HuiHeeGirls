@@ -62,7 +62,7 @@ table {
 		<div class="col-xs-12" style="margin: 15px auto;">
 			<label style="font-size: 20px;"><span
 				class="glyphicon glyphicon-list-alt"></span>게시글 목록</label> <a
-				class="btn btn-primary btn-sm" style="float: right;"
+				class="btn btn-sm" style="float: right;background-color:#F3969A;"
 				href="${R}user/board">글쓰기</a>
 		</div>
 		<div class="col-xs-12">

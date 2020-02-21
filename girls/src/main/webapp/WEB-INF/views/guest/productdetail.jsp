@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:url var="R" value="/" />
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -43,8 +44,9 @@ function ShowPrice(){
 
 				<img src="/images/${p.image_url}" class="imgg">
 
-
+				
 				<br />
+				<hr />
 				<br />
 				<br />
 				<br />
@@ -79,12 +81,13 @@ function ShowPrice(){
 						</c:forEach>
 					</select>&nbsp;개
 					<br />
-					<button style="margin:10;"type="submit" onclick="return confirm('장바구니에 담겠습니까?')"
-						class="btn btn-primary">장바구니</button>
+					<button style="margin:10;background-color:#F3969A;"type="submit"
+					onclick="return confirm('장바구니에 담겠습니까?')" class="btn btn-primary">장바구니</button>
 				</form:form>
-				<a href="${R}guest/productlist/${p.category.id}">목록으로</a>
+				<a style="color:black;"href="${R}guest/productlist/${p.category.id}">목록으로</a>
 			</c:if>
 		</c:forEach>
+		<hr />
 	</div>
 	<br />
 	<%@ include file="bottom.jsp"%>

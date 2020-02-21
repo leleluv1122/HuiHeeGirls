@@ -59,8 +59,8 @@ table {
 							<label>내용:</label>
 							<form:input path="detail" class="form-control w200" />
 						</div>
-						<button type="submit" onclick="return confirm('작성 하시겠습니까?')"
-							class="btn btn-primary">작성</button>
+						<button type="submit" style="background-color:#F3969A;" onclick="return confirm('작성 하시겠습니까?')"
+							class="btn">작성</button>
 					</form:form>
 				</td>
 			</tr>

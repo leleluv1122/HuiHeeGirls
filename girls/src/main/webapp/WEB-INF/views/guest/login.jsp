@@ -39,7 +39,7 @@
 						</div>
 						<hr />
 						<div>
-							<button type="submit" class="btn btn-primary">
+							<button type="submit" class="btn" style="background-color:#F3969A;">
 								<span class="glyphicon glyphicon-ok"></span> 로그인
 							</button>
 						</div>

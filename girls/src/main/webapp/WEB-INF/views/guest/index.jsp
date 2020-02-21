@@ -11,8 +11,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet" media="screen">
+	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-4HfFay3AYJnEmbgRzxYWJk/Ka5jIimhB/Fssk7NGT9Tj3rkEChpSxLK0btOGzf2I"
+	crossorigin="anonymous">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="${R}res/index.css">
@@ -39,17 +41,28 @@ table {
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
-	<div class="container">	
+	<div class="container">
 		<div class="slider">
 			<ul class="slides">
-				<c:forEach begin="1" end="2" var="i">
+				<c:forEach begin="1" end="1" var="i">
 					<li><img src="/images/index${i}.jpg"
-						style="width: 1020px; height: auto;"> 
-					</li>
+						style="width: 1020px; height: auto;"></li>
 				</c:forEach>
 			</ul>
 		</div>
+		<br /> <br /> <br /> <br /> <br />
+		<table style="margin: 50px;">
 
+			<tr>
+				<td><a href="productlist/4"><img
+						src="/images/label1.jpg" style="width: 330px; height: auto;"></a>
+				</td>
+				<td><a href="productlist/2"><img src="/images/label2.jpg"
+					style="width: 330px; height: auto;"></a></td>
+				<td><img src="/images/label3.jpg"
+					style="width: 330px; height: auto;"></td>
+			</tr>
+		</table>
 
 
 		<%-- <c:forEach begin="1" end="2" var="i">

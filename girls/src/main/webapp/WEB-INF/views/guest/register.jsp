@@ -32,7 +32,7 @@ table {
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
-		<table>
+		<table style="margin:20px;">
 			<tr>
 				<td style="width: 85%;">
 					<h1>회원 가입</h1>
@@ -79,7 +79,7 @@ table {
 							<form:errors path="address_detail" class="error" />
 						</div>
 						<button type="submit" onclick="return confirm('회원가입 하시겠습니까?')"
-							class="btn btn-primary">
+							class="btn" style="background-color:#F3969A;">
 							<i class="glyphicon glyphicon-user"></i> 회원가입
 						</button>
 					</form:form>

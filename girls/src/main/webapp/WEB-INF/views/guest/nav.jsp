@@ -9,17 +9,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet" media="screen">
-
-<link rel="canonical"
-	href="https://getbootstrap.com/docs/4.3/examples/navbars/">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-
 
 <!-- nav drop_down bar -->
 <script
@@ -27,10 +16,19 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${R}res/index.css">
+
+<link
+	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-4HfFay3AYJnEmbgRzxYWJk/Ka5jIimhB/Fssk7NGT9Tj3rkEChpSxLK0btOGzf2I"
+	crossorigin="anonymous">
+
+
+
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
+		<nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#78C2AD;"> <a
 			class="navbar-brand" style="font-size: 3em;" href="${R}guest/index">히히걸즈</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
@@ -41,8 +39,8 @@
 			<ul class="navbar-nav mr-auto">
 
 				<c:forEach var="c" items="${category}">
-					<li class="nav-item"><a class="nav-link" href="${R}guest/productlist/${c.id}"
-					style="margin-right: 20px;"><b>${c.title}</b></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${R}guest/productlist/${c.id}" style="margin-right: 20px;"><b>${c.title}</b></a></li>
 					<%-- <li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#"
 						id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
