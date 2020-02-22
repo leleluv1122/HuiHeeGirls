@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.lele.domain.Basket;
 import net.lele.domain.Board;
+import net.lele.service.BasketService;
 import net.lele.service.BoardService;
 import net.lele.service.CategoryService;
 import net.lele.service.UserService;
@@ -24,6 +26,8 @@ public class UserController {
 	BoardService boardService;
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	BasketService basketService;
 	
 	@RequestMapping("user/index")
 	public String index(Model model) throws Exception {
@@ -65,5 +69,12 @@ public class UserController {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("user", userService.findAll());
 		return "user/info";
+	}
+	
+	@RequestMapping(value = "user/basket")
+	public String basket(Model model, Basket basket) {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("basket", basketService.findAll());
+		return "user/basket";
 	}
 }

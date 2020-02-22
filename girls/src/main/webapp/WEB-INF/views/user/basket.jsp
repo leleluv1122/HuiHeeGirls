@@ -24,15 +24,47 @@ table {
 	table-layout: fixed;
 	word-break: break-all;
 }
+td {
+	margin: 15px;
+	line-height: 300%;
+	padding-right: 30px;
+}
+.imgg{
+	width:150px;
+	height:auto;
+}
 </style>
 
 <title>히히걸즈</title>
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
+	<sec:authorize access="authenticated">
+		<sec:authentication property="user.id" var="currentid" />
+	</sec:authorize>
 	<div class="container">
-
-		
+		<table>
+			<thead>
+				<tr>
+					<th>이미지</th>
+					<th>상품정보</th>
+					<th>판매가</th>
+					<th>수량</th>
+					<th>합계</th>
+				</tr>
+			</thead>
+			<c:forEach var="b" items="${basket}">
+				<tbody>
+					<tr>
+						<td><img src="${b.product.image_url}" class="imgg"></td>
+						<td>${b.product.name}</td>
+						<td>${b.product.price}</td>
+						<td>${b.count}</td>
+						<td>-</td>
+					</tr>
+				</tbody>
+			</c:forEach>
+		</table>
 	</div>
 	<%@ include file="bottom.jsp"%>
 </body>

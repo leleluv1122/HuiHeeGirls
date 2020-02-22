@@ -42,12 +42,24 @@ table {
 	<div class="container">
 		<div class="slider">
 			<ul class="slides">
-				<c:forEach begin="1" end="2" var="i">
+				<c:forEach begin="1" end="1" var="i">
 					<li><img src="/images/index${i}.jpg"
-						style="width: 1050px; height: auto;"></li>
+						style="width: 1020px; height: auto;"></li>
 				</c:forEach>
 			</ul>
 		</div>
+		<br /> <br /> <br /> <br /> <br />
+		<table style="margin: 50px;">
+
+			<tr>
+				<td><a href="productlist/4"><img src="/images/label1.jpg"
+						style="width: 330px; height: auto;"></a></td>
+				<td><a href="productlist/2"><img src="/images/label2.jpg"
+						style="width: 330px; height: auto;"></a></td>
+				<td><img src="/images/label3.jpg"
+					style="width: 330px; height: auto;"></td>
+			</tr>
+		</table>
 	</div>
 	<%@ include file="bottom.jsp"%>
 </body>

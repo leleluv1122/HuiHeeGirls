@@ -28,8 +28,9 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#78C2AD;"> <a
-			class="navbar-brand" style="font-size: 3em;" href="${R}guest/index">히히걸즈</a>
+		<nav class="navbar navbar-expand-lg navbar-dark "
+			style="background-color:#78C2AD;"> <a class="navbar-brand"
+			style="font-size: 3em;" href="${R}guest/index">히히걸즈</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -93,6 +94,8 @@
 					</div></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${R}guest/boardlist" style="margin-left: 20px;"><b>자유게시판</b></a></li>
+				<li class="nav-item"><a class="nav-link" href="${R}user/basket"
+					style="margin-left: 20px;"><b>장바구니</b></a></li>
 			</ul>
 		</div>
 		</nav>

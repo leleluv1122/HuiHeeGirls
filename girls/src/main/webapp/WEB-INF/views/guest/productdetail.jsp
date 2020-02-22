@@ -44,7 +44,7 @@ function ShowPrice(){
 
 				<img src="/images/${p.image_url}" class="imgg">
 
-				
+
 				<br />
 				<hr />
 				<br />
@@ -69,22 +69,34 @@ function ShowPrice(){
 
 				<label>${p.color}</label>
 				<br />
+				
 				<form:form method="post" modelAttribute="basket">
-					<input type="hidden" path="product" value="${p.id}">
-					<sec:authorize access="authenticated">
-						<sec:authentication property="user.id" var="currentid" />
-						<input type="hidden" path="user" value="${currentid}">
-					</sec:authorize>
-					<select path="count">
-						<c:forEach begin="1" end="10" var="i">
-							<option value="${i}">${i}</option>
-						</c:forEach>
-					</select>&nbsp;개
+					<div class="form-group">
+						<form:hidden path="product" value="${p.id}" />
+					</div>
+					<div class="form-group">
+						<sec:authorize access="authenticated">
+							<sec:authentication property="user.id" var="currentid" />
+							<form:hidden path="user" value="${currentid}" />
+						</sec:authorize>
+					</div>
+					<div class="form-group">
+						<form:select path="count">
+							<label>수량:</label>
+							<c:forEach begin="1" end="10" var="i">
+								<form:option value="${i}">${i}</form:option>
+							</c:forEach>
+						</form:select>&nbsp;개
+					</div>
 					<br />
-					<button style="margin:10;background-color:#F3969A;"type="submit"
-					onclick="return confirm('장바구니에 담겠습니까?')" class="btn btn-primary">장바구니</button>
+					<div class="form-group">
+						<button style="margin: 10; background-color: #F3969A;"
+							type="submit" onclick="return confirm('장바구니에 담겠습니까?')"
+							class="btn btn-primary">장바구니</button>
+						<a style="color: black;"
+							href="${R}guest/productlist/${p.category.id}">목록으로</a>
+					</div>
 				</form:form>
-				<a style="color:black;"href="${R}guest/productlist/${p.category.id}">목록으로</a>
 			</c:if>
 		</c:forEach>
 		<hr />

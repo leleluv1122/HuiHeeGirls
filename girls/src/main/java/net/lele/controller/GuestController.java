@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.lele.domain.Basket;
 import net.lele.domain.Board;
 import net.lele.model.Pagination;
 import net.lele.model.UserRegistrationModel;
 import net.lele.repository.BoardRepository;
+import net.lele.service.BasketService;
 import net.lele.service.BoardService;
 import net.lele.service.CategoryService;
 import net.lele.service.ProductService;
@@ -34,6 +36,8 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	CategoryService categoryService;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	BasketService basketService;
 
 	@RequestMapping({ "/", "guest/index" })
 	public String index(Model model) {
@@ -53,12 +57,25 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 		return "guest/productlist";
 	}
 
-	@RequestMapping("guest/productdetail/{id}")
-	public String productdetail(@PathVariable("id") int id, Model model) {
+	@RequestMapping(value = "guest/productdetail/{id}")
+	public String productdetail(@PathVariable("id") int id, Model model, Basket basket) {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("product", productService.findAll());
 		model.addAttribute("idd", id);
 		return "guest/productdetail";
+	}
+
+	@RequestMapping(value = "guest/productdetail/{id}", method = RequestMethod.POST)
+	public String productdetail(@PathVariable("id") int id, Model model, Basket basket, BindingResult bindingResult) {
+		/*
+		 * if (basketService.hasErrors(basket, bindingResult)) {
+		 * model.addAttribute("category", categoryService.findAll());
+		 * model.addAttribute("product", productService.findAll());
+		 * model.addAttribute("basket", basketService.findAll());
+		 * model.addAttribute("idd", id); return "guest/productdetail/{id}"; }
+		 */
+		basketService.save(basket);
+		return "redirect:/user/basket";
 	}
 
 	@RequestMapping("guest/login")
