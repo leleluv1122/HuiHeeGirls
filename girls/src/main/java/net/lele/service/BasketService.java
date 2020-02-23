@@ -33,4 +33,8 @@ public class BasketService {
 		basketRepository.save(ba);
 	}
 	
+	/*
+	 * public void delete(int id) { basketRepository.deleteById(id); }
+	 */
+	
 }

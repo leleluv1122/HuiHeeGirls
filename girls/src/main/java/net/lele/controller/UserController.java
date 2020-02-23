@@ -75,6 +75,7 @@ public class UserController {
 	public String basket(Model model, Basket basket) {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("basket", basketService.findAll());
+		/* model.addAttribute("bd", basketService.delete(id)); */
 		return "user/basket";
 	}
 }
