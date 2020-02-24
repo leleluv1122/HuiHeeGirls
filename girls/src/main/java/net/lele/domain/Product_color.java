@@ -11,20 +11,14 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Product {
+public class Product_color {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	
-	String name;
-	int price;
-	String description;
-	String image_url;
-	
-	int discount;
-	
 	@ManyToOne
-	@JoinColumn(name = "category_id")
-	Category category;
-
+	@JoinColumn(name = "productid")
+	Product product;
+	
+	String color;
 }

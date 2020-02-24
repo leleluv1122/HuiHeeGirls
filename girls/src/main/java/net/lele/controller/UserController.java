@@ -36,14 +36,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/board")
-	public String board(Model model, Board board) {
+	public String board(Model model, Board board) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("user", userService.findAll());
 		return "user/board";
 	}
 
 	@RequestMapping(value = "user/board", method = RequestMethod.POST)
-	public String board(Model model, Board board, BindingResult bindingResult) {
+	public String board(Model model, Board board, BindingResult bindingResult) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
 		if (boardService.hasErrors(board, bindingResult)) {
 			model.addAttribute("category", categoryService.findAll());
@@ -72,10 +72,19 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/basket")
-	public String basket(Model model, Basket basket) {
+	public String basket(Model model, Basket basket) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("basket", basketService.findAll());
-		/* model.addAttribute("bd", basketService.delete(id)); */
 		return "user/basket";
 	}
+	
+	@RequestMapping(value="user/delete/{id}")
+	public String delete(@PathVariable("id") int id, Model model, Basket basket) throws Exception {
+		basketService.delete(id);
+		
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("basket", basketService.findAll());
+		return "redirect:/user/basket";
+	}
+	
 }

@@ -67,9 +67,9 @@ function ShowPrice(){
 						value="${p.discountPrice }" pattern="###,###,###" />원</span> --%>
 
 
-				<label>${p.color}</label>
+				<%-- <label>${p.color}</label> --%>
 				<br />
-				
+
 				<form:form method="post" modelAttribute="basket">
 					<div class="form-group">
 						<form:hidden path="product" value="${p.id}" />
@@ -80,18 +80,24 @@ function ShowPrice(){
 							<form:hidden path="user" value="${currentid}" />
 						</sec:authorize>
 					</div>
+
 					<div class="form-group">
 						<form:select path="count">
 							<label>수량:</label>
 							<c:forEach begin="1" end="10" var="i">
 								<form:option value="${i}">${i}</form:option>
+								<br />
 							</c:forEach>
-						</form:select>&nbsp;개
+						</form:select>
+						&nbsp;개
 					</div>
+					<br />
+					<form:select path="color" class="form-control w200" itemValue="id"
+						itemLabel="color" items="${ colors }" />
 					<br />
 					<div class="form-group">
 						<button style="margin: 10; background-color: #F3969A;"
-							type="submit" onclick="return confirm('장바구니에 담겠습니까?')"
+							type="submit" onclick="return confirm('장바구니에 담으시겠습니까?')"
 							class="btn btn-primary">장바구니</button>
 						<a style="color: black;"
 							href="${R}guest/productlist/${p.category.id}">목록으로</a>

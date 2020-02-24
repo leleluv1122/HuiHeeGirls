@@ -26,4 +26,9 @@ public class Basket {
 	Product product;
 
 	int count;
+	
+	@ManyToOne
+	@JoinColumn(name="color")
+	Product_color color;
+	/* String option; */
 }

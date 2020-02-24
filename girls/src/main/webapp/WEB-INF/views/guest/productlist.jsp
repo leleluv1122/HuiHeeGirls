@@ -67,9 +67,9 @@
 								style="font-size: 12px; color: #333333; font-weight: bold;"><fmt:formatNumber
 										value="${p.price}" pattern="###,###,###" />원</span></td>
 						</tr>
-						<tr>
+						<%-- <tr>
 							<td><label style="font-size: 11px;">${p.color}</label></td>
-						</tr>
+						</tr> --%>
 					</table>
 				</div>
 			</c:if>

@@ -86,7 +86,7 @@
 							<a class="btn btn-light btn-xs" href="${R}guest/register">회원가입</a>
 						</sec:authorize>
 						<sec:authorize access="authenticated">
-							<a class="btn btn-light btn-xs" href="${R}user/logout_processing">로그아웃</a>
+							<a class="btn btn-light btn-xs" href="${R}user/logout_processing">로그아웃</a><br />
 							<a class="btn btn-light btn-xs" href="${R}user/info"> <sec:authentication
 									property="user.name" />
 							</a>

@@ -46,17 +46,16 @@ td {
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
-	<sec:authorize access="authenticated">
-		<sec:authentication property="user.id" var="currentid" />
-	</sec:authorize>
 	<div class="container">
 
-		<table style="">
+		<table style="width: 100%">
 			<colgroup>
-				<col width="5%" />
-				<col width="22%" />
-				<col width="30%" />
-				<col width="15%" />
+				<col width="4%" />
+				<col width="19%" />
+				<col width="23%" />
+				<col width="10%" />
+				<col width="10%" />
+				<col width="10%" />
 				<col width="10%" />
 				<col width="*" />
 			</colgroup>
@@ -67,7 +66,7 @@ td {
 							$("#allCheck").click(function() {
 								var chk = $("#allCheck").prop("checked");
 								if (chk) {
-									$(".chBox").prop("checked", true);
+									$(".chBox").prop("checked", true); //속성값을 가져옴
 								} else {
 									$(".chBox").prop("checked", false);
 								}
@@ -75,6 +74,7 @@ td {
 						</script></th>
 					<th>이미지</th>
 					<th>상품정보</th>
+					<th>색상</th>
 					<th>판매가</th>
 					<th>수량</th>
 					<th>합계</th>
@@ -82,41 +82,59 @@ td {
 				</tr>
 			</thead>
 			<c:forEach var="b" items="${basket}">
-				<tbody>
-					<tr style="height: 170px;">
-						<td><input type="checkbox" name="chBox" class="chBox"
-							value="${b.id}" /> <script>
-								$(".chBox").click(function() {
-									$("#allCheck").prop("checked", false);
-								});
-							</script></td>
-						<td><img src="/images/${b.product.image_url}" class="imgg"></td>
-						<td>${b.product.name}</td>
-						<td>${b.product.price}</td>
-						<td>${b.count}</td>
-						<td>-</td>
-						<td>
-							<button class="btn btn-dark">주문하기</button> <br /> <br />
-							<button class="btn">삭제</button>
-						</td>
-					</tr>
-				</tbody>
+				<sec:authorize access="authenticated">
+					<sec:authentication property="user.id" var="currentid" />
+					<c:if test="${b.user.id==currentid}">
+
+						<tbody>
+							<tr style="height: 170px;">
+								<td><input type="checkbox" name="chBox" class="chBox"
+									value="${b.id}" /> <script>
+										$(".chBox").click(
+												function() {
+													$("#allCheck").prop(
+															"checked", false);
+												});
+									</script></td>
+								<td><a href="/guest/productdetail/${b.product.id}"><img
+										src="/images/${b.product.image_url}" class="imgg"></a></td>
+								<td><a href="/guest/productdetail/${b.product.id}"
+									style="color: black;">${b.product.name}</a></td>
+								<td>${b.color.color}</td>
+								<td>${b.product.price}</td>
+								<td>${b.count}</td>
+								<td>${b.product.price * b.count}</td>
+								<td>
+									<button class="btn btn-dark">주문하기</button> <br /> <br /> <a
+									href="/user/delete/${b.id}" class="btn"
+									onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> <%-- <button class="btn" onclick="location.href='/user/delete/${b.id}'">
+									삭제</button>  --%>
+								</td>
+							</tr>
+						</tbody>
+					</c:if>
+				</sec:authorize>
 			</c:forEach>
 		</table>
 		<hr />
 		<br /> <br />
-		<div style="text-align:center;">
+		<div style="text-align:right;">
+			
+		</div>
+		<br /> <br /> <br /> <br />
+		<div style="text-align: center;">
 			<button class="btn"
 				style="font-size: 16px; width: 140px; height: 40px; background-color: #F3969A;">
 				<span class="glyphicon glyphicon-ok" style="margin: 4px;"></span>전체상품주문
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="btn"
-				style="font-size: 16px; width: 140px; height: 40px;">
+				style="font-size: 16px; width: 140px; height: 40px; background-color: #6CC3D5;">
 				<span class="glyphicon glyphicon-check" style="margin: 4px;"></span>선택상품주문
 			</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button type="button" class="btn"
-				style="font-size: 16px; width: 140px; height: 40px; background-color: #FFCE67;">
+				style="font-size: 16px; width: 140px; height: 40px; background-color: #FF7851;">
 				<span class="glyphicon glyphicon-remove" style="margin: 4px;"></span>
 				선택삭제
 			</button>

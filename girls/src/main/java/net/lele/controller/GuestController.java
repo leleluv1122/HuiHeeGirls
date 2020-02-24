@@ -21,6 +21,7 @@ import net.lele.service.BasketService;
 import net.lele.service.BoardService;
 import net.lele.service.CategoryService;
 import net.lele.service.ProductService;
+import net.lele.service.Product_colorService;
 import net.lele.service.UserService;
 
 @Controller
@@ -38,6 +39,8 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	ProductService productService;
 	@Autowired
 	BasketService basketService;
+	@Autowired
+	Product_colorService ps;
 
 	@RequestMapping({ "/", "guest/index" })
 	public String index(Model model) {
@@ -61,19 +64,21 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	public String productdetail(@PathVariable("id") int id, Model model, Basket basket) {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("product", productService.findAll());
+		model.addAttribute("colors", ps.findByProductId(id));
 		model.addAttribute("idd", id);
 		return "guest/productdetail";
 	}
 
 	@RequestMapping(value = "guest/productdetail/{id}", method = RequestMethod.POST)
 	public String productdetail(@PathVariable("id") int id, Model model, Basket basket, BindingResult bindingResult) {
-		/*
-		 * if (basketService.hasErrors(basket, bindingResult)) {
-		 * model.addAttribute("category", categoryService.findAll());
-		 * model.addAttribute("product", productService.findAll());
-		 * model.addAttribute("basket", basketService.findAll());
-		 * model.addAttribute("idd", id); return "guest/productdetail/{id}"; }
-		 */
+		if (basketService.hasErrors(basket, bindingResult)) {
+			model.addAttribute("category", categoryService.findAll());
+			model.addAttribute("product", productService.findAll());
+			model.addAttribute("basket", basketService.findAll());
+			model.addAttribute("idd", id);
+			return "redirect:/guest/productdetail/{id}";
+		}
+
 		basketService.save(basket);
 		return "redirect:/user/basket";
 	}
@@ -95,7 +100,6 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	@RequestMapping(value = "guest/register", method = RequestMethod.POST)
 	public String register(@Valid UserRegistrationModel userModel, BindingResult bindingResult, Model model) {
 		model.addAttribute("category", categoryService.findAll());
-
 		if (userService.hasErrors(userModel, bindingResult)) {
 			return "guest/register";
 		}
