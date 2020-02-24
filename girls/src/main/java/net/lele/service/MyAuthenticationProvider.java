@@ -39,7 +39,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         case "관리자": role = "ROLE_ADMIN"; break;
         case "user": role = "ROLE_STUDENT"; break;
         }
-        // User 테이블의 userType 필드의 값은 '관리자', '학생'
+        // User 테이블의 userType 필드의 값은 '관리자', 'user'
         // spring security 권한을 ROLE_~~ 로 설정한다
         grantedAuthorities.add(new SimpleGrantedAuthority(role));
         return new MyAuthenticaion(loginId, password, grantedAuthorities, user);

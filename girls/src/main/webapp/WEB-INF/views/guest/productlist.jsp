@@ -40,7 +40,7 @@
 <title>히히걸즈</title>
 <style>
 .pl {
-	margin:10px;
+	margin: 10px;
 }
 </style>
 </head>
@@ -63,13 +63,13 @@
 							<td><span style="font-size: 11px; color: #999999;">${p.description}</span></td>
 						</tr>
 						<tr>
-							<td><span
-								style="font-size: 12px; color: #333333; font-weight: bold;"><fmt:formatNumber
+							<td style="font-size: 12px; color: #333333; font-weight: bold;"><label>상품가:</label><span><fmt:formatNumber
 										value="${p.price}" pattern="###,###,###" />원</span></td>
 						</tr>
-						<%-- <tr>
-							<td><label style="font-size: 11px;">${p.color}</label></td>
-						</tr> --%>
+						<tr>
+							<td style="font-size: 12px; color: #333333; font-weight: bold;"><label>할인가:</label><span><fmt:formatNumber
+										value="${p.price-(p.price*p.discount)/100}" pattern="###,###,###" />원</span></td>
+						</tr>
 					</table>
 				</div>
 			</c:if>

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:url var="R" value="/" />
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -34,10 +34,18 @@ table {
 
 td {
 	text-align: center;
+	font-size: 12px;
+	color: #333333;
+	font-weight: bold;
+}
+.sum{
+	font-size: 12px;
+	color: #333333;
+	font-weight: bold;
 }
 
 .imgg {
-	width: 150px;
+	width: 130px;
 	height: auto;
 }
 </style>
@@ -51,8 +59,8 @@ td {
 		<table style="width: 100%">
 			<colgroup>
 				<col width="4%" />
-				<col width="19%" />
-				<col width="23%" />
+				<col width="15%" />
+				<col width="17%" />
 				<col width="10%" />
 				<col width="10%" />
 				<col width="10%" />
@@ -72,19 +80,20 @@ td {
 								}
 							});
 						</script></th>
-					<th>이미지</th>
+					<th>${aa}</th>
 					<th>상품정보</th>
 					<th>색상</th>
 					<th>판매가</th>
+					<th>할인가</th>
 					<th>수량</th>
 					<th>합계</th>
 					<th>선택</th>
 				</tr>
 			</thead>
 			<c:forEach var="b" items="${basket}">
-				<sec:authorize access="authenticated">
+				<%-- <sec:authorize access="authenticated">
 					<sec:authentication property="user.id" var="currentid" />
-					<c:if test="${b.user.id==currentid}">
+					<c:if test="${b.user.id==currentid}"> --%>
 
 						<tbody>
 							<tr style="height: 170px;">
@@ -102,25 +111,41 @@ td {
 									style="color: black;">${b.product.name}</a></td>
 								<td>${b.color.color}</td>
 								<td>${b.product.price}</td>
+								<td><span><fmt:formatNumber
+											value="${b.product.price-(b.product.discount*b.product.price)/100}"
+											pattern="###,###,###" /></span></td>
 								<td>${b.count}</td>
-								<td>${b.product.price * b.count}</td>
+								<td><span><fmt:formatNumber
+											value="${(b.product.price-(b.product.discount*b.product.price)/100)* b.count}"
+											pattern="###,###,###" />원</span></td>
 								<td>
-									<button class="btn btn-dark">주문하기</button> <br /> <br /> <a
-									href="/user/delete/${b.id}" class="btn"
-									onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> <%-- <button class="btn" onclick="location.href='/user/delete/${b.id}'">
+
+									<!-- <button class="btn btn-dark">주문하기</button> -->
+									<a href="/user/order/${b.id}" class="btn btn-dark">주문하기</a>
+									<br /> <br /> 
+									<a href="/user/delete/${b.id}" class="btn"
+									onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> 
+									<%-- <button class="btn" onclick="location.href='/user/delete/${b.id}'">
 									삭제</button>  --%>
 								</td>
 							</tr>
 						</tbody>
-					</c:if>
-				</sec:authorize>
+						<c:set var="sum" value="${sum + (b.product.price-(b.product.discount*b.product.price)/100)* b.count}" />
+					<%-- </c:if>
+				</sec:authorize> --%>
 			</c:forEach>
 		</table>
+		
 		<hr />
 		<br /> <br />
-		<div style="text-align:right;">
-			
+		<div class="result">
+			<div class="sum">
+				총 합계: <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
+			</div>
 		</div>
+		<hr />
+		<br /> <br />
+		<div style="text-align: right;"></div>
 		<br /> <br /> <br /> <br />
 		<div style="text-align: center;">
 			<button class="btn"
@@ -140,7 +165,6 @@ td {
 			</button>
 		</div>
 		<br /> <br /> <br />
-		<hr />
 
 
 	</div>

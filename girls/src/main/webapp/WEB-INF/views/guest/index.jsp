@@ -41,6 +41,7 @@ table {
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
+	
 	<div class="container">
 		<div class="slider">
 			<ul class="slides">
@@ -62,10 +63,10 @@ table {
 				<td><img src="/images/label3.jpg"
 					style="width: 330px; height: auto;"></td>
 			</tr>
-		</table>
+		</table><%-- 
 
 
-		<%-- <c:forEach begin="1" end="2" var="i">
+		<c:forEach begin="1" end="2" var="i">
 			<img src="/images/index${i}.jpg" class="imgg">
 		</c:forEach> --%>
 

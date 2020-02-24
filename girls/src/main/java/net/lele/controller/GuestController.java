@@ -76,7 +76,7 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 			model.addAttribute("product", productService.findAll());
 			model.addAttribute("basket", basketService.findAll());
 			model.addAttribute("idd", id);
-			return "redirect:/guest/productdetail/{id}";
+			return "redirect:/guest/login";
 		}
 
 		basketService.save(basket);
@@ -86,7 +86,6 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	@RequestMapping("guest/login")
 	public String login(Model model) {
 		model.addAttribute("category", categoryService.findAll());
-
 		return "guest/login"; // 로그인 페이지 URL
 	}
 

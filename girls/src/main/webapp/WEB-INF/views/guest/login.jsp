@@ -42,6 +42,7 @@
 							<button type="submit" class="btn" style="background-color:#F3969A;">
 								<span class="glyphicon glyphicon-ok"></span> 로그인
 							</button>
+							<a href="/guest/register" class="btn btn-dark">회원가입</a>
 						</div>
 					</form> <c:if test="${ param.error != null }">
 						<div class="mt5">로그인 실패</div>

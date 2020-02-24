@@ -1,10 +1,31 @@
 package net.lele.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import net.lele.domain.Basket;
 
 public interface BasketRepository extends JpaRepository<Basket, Integer> {
+
+	List<Basket> findByUserUserId(String userId);
+	
+	
+	
+	/*
+	 * @Query("SELECT b.user as user, COUNT(b.count) as cnt, b.product as product, b.color as color "
+	 * + "FROM Basket b " + "GROUP BY b.user, b.product, b.color") List<Object[]>
+	 * findBasketCount();
+	 */
+
+	/*
+	 * @Query(
+	 * value="SELECT new net.lele.domain.Basket(b.user as user, b.product as product, "
+	 * + "b.color as color, count(b.count)) as count " + "FROM Basket" +
+	 * "GROUP BY b.product, b.color", nativeQuery = true) List<Basket>
+	 * findBasketCount();
+	 */
+
 	/*
 	 * @Query("SELECT userid, productid, count(count) as count, p.* FROM basket b" +
 	 * "JOIN product p ON b.productid = p.id" + "GROUP BY productid") List<Object>

@@ -62,12 +62,10 @@ function ShowPrice(){
 				<span style="font-size: 12px; color: #333333; font-weight: bold;"><fmt:formatNumber
 						value="${p.price}" pattern="###,###,###" />원</span>
 				<br />
-				<%-- <span>세일가:</span>
+				<span>세일가:</span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span style="font-size: 12px; color: #333333; font-weight: bold;"><fmt:formatNumber
-						value="${p.discountPrice }" pattern="###,###,###" />원</span> --%>
-
-
-				<%-- <label>${p.color}</label> --%>
+						value="${p.price-(p.discount*p.price)/100}" pattern="###,###,###" />원</span>
+				
 				<br />
 
 				<form:form method="post" modelAttribute="basket">
@@ -96,9 +94,17 @@ function ShowPrice(){
 						itemLabel="color" items="${ colors }" />
 					<br />
 					<div class="form-group">
-						<button style="margin: 10; background-color: #F3969A;"
-							type="submit" onclick="return confirm('장바구니에 담으시겠습니까?')"
-							class="btn btn-primary">장바구니</button>
+						<sec:authorize access="not authenticated">
+							<button style="margin: 10; background-color: #F3969A;"
+								type="submit" onclick="return confirm('로그인해주세요')"
+								class="btn btn-primary">장바구니</button>
+						</sec:authorize>
+						<sec:authorize access="authenticated">
+							<button style="margin: 10; background-color: #F3969A;"
+								type="submit" onclick="return confirm('장바구니에 담으시겠습니까?')"
+								class="btn btn-primary">장바구니</button>
+						</sec:authorize>
+
 						<a style="color: black;"
 							href="${R}guest/productlist/${p.category.id}">목록으로</a>
 					</div>

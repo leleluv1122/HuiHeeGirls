@@ -17,15 +17,15 @@ public class BasketService {
 	public List<Basket> findAll() {
 		return basketRepository.findAll();
 	}
-	/*
-	 * public List<Object[]> findBasketOfCount() { return
-	 * basketRepository.findBasketOfCount(); }
-	 */
-
+	
+	public List<Basket> findByUserUserId(String userId){
+		return basketRepository.findByUserUserId(userId);
+	}
+	
 	public boolean hasErrors(Basket basket, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return true;
-		if(basket.getUser() == null) {
+		if (basket.getUser() == null) {
 			bindingResult.rejectValue("user", null, "로그인이 필요한 서비스입니다.");
 			return true;
 		}
@@ -38,7 +38,6 @@ public class BasketService {
 		ba.setProduct(basket.getProduct());
 		ba.setUser(basket.getUser());
 		ba.setColor(basket.getColor());
-		/* ba.setOption(basket.getOption()); */
 		basketRepository.save(ba);
 	}
 
