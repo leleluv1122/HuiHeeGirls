@@ -39,11 +39,6 @@ function ShowPrice(){
 	text-align: center;
 	display: block; margin: 0px auto;
 } */
-
-.det{
-	height: 1300px;
-	width:auto;
-}
 ul.menu li {
 	list-style-type: none;
 	float: left;
@@ -135,46 +130,77 @@ ul.menu li {
 		<hr />
 
 		<div>
-			<div id="prdDetail">
+			<div id="prdDetail" style="height: 4300px; width: 1200px;">
 				<ul class="menu">
 					<li class="selected"><a href="#prdDetail"
 						style="color: black;">detail</a></li>
 					<li><a href="#prdReview" style="color: black;">review</a></li>
-					<li><a href="#prdQnA" style="color: black;">q&a</a></li>
+					<li><a href="#prdQnA" style="color: black;">QnA</a></li>
 				</ul>
-				<br /><hr />
-				<div class="cont" style="width:900px;height:auto;">
+				<br />
+				<hr />
+				<div class="cont">
 					<c:forEach var="p" items="${detail}">
 						<c:if test="${p.product.id ==idd }">
-							<p style="text-algin:center">
-								<img src="/images/${p.detail}" class="imggg">
+							<p style="text-algin: center">
+								<img src="/images/${p.detail}">
 							</p>
 						</c:if>
 					</c:forEach>
 				</div>
 			</div>
+			<br />
+			<hr />
 
-			<div id="prdReview" class="de">
+			<div id="prdReview" style="height: 100px; width: 1050px;">
 				<ul class="menu">
 					<li><a href="#prdDetail" style="color: black;">detail</a></li>
 					<li class="selected"><a href="#prdReview"
 						style="color: black;">review</a></li>
-					<li><a href="#prdQnA" style="color: black;">q&a</a></li>
+					<li><a href="#prdQnA" style="color: black;">QnA</a></li>
 				</ul>
 				<div class="rev">
-					
+					<table>
+						<tr>
+							<td></td>
+						</tr>
+					</table>
 				</div>
 			</div>
-			<br /> <hr />
+			<br />
+			<hr />
 
-			<div id="prdQnA" class="de">
+			<div id="prdQnA" style="height: 1000px; width: 1200px;">
 				<ul class="menu">
 					<li><a href="#prdDetail" style="color: black;">detail</a></li>
 					<li><a href="#prdReview" style="color: black;">review</a></li>
-					<li class="selected"><a href="#prdQnA" style="color: black;">q&a</a></li>
+					<li class="selected"><a href="#prdQnA" style="color: black;">QnA</a></li>
 				</ul>
-				<div class="rev">
-					
+				<br /> <br /> <br />
+				<div class="qna">
+					<a href="/guest/qna/${idd}" class="btn btn-dark" style="float: right;margin:15px;">문의하기</a>
+					<table class="table table-hover" style="width: 1150px;">
+						<thead>
+							<tr>
+								<th style="background-color: white;">contents</th>
+								<th style="background-color: white;">name</th>
+								<th style="background-color: white;">date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="q" items="${qna}">
+								<c:if test="${q.product.id ==idd }">
+									<tr>
+										<td>${q.title}</td>
+										<td>${q.writer}</td>
+										<td><fmt:formatDate value="${q.date}"
+												pattern="yyyy.MM.dd HH:mm:ss" /></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+
 				</div>
 			</div>
 		</div>

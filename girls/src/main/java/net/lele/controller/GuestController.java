@@ -23,6 +23,7 @@ import net.lele.service.CategoryService;
 import net.lele.service.ProductService;
 import net.lele.service.Product_colorService;
 import net.lele.service.Product_detailService;
+import net.lele.service.Product_qnaService;
 import net.lele.service.UserService;
 
 @Controller
@@ -44,6 +45,8 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	Product_colorService ps;
 	@Autowired
 	Product_detailService pd;
+	@Autowired
+	Product_qnaService pq;
 
 	@RequestMapping({ "/", "guest/index" })
 	public String index(Model model) {
@@ -69,6 +72,7 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 		model.addAttribute("product", productService.findAll());
 		model.addAttribute("colors", ps.findByProductId(id));
 		model.addAttribute("detail", pd.findByProductId(id));
+		model.addAttribute("qna", pq.findByProductId(id));
 		model.addAttribute("idd", id);
 		return "guest/productdetail";
 	}
@@ -85,6 +89,13 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 
 		basketService.save(basket);
 		return "redirect:/user/basket";
+	}
+	
+	@RequestMapping(value="guest/qna/{id}")
+	public String qna(@PathVariable("id") int id, Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("idd", id);
+		return "guest/qna";
 	}
 
 	@RequestMapping("guest/login")
