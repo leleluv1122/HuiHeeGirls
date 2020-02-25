@@ -38,7 +38,8 @@ td {
 	color: #333333;
 	font-weight: bold;
 }
-.sum{
+
+.sum {
 	font-size: 12px;
 	color: #333333;
 	font-weight: bold;
@@ -55,7 +56,6 @@ td {
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
-
 		<table style="width: 100%">
 			<colgroup>
 				<col width="4%" />
@@ -80,7 +80,7 @@ td {
 								}
 							});
 						</script></th>
-					<th>${aa}</th>
+					<th>이미지</th>
 					<th>상품정보</th>
 					<th>색상</th>
 					<th>판매가</th>
@@ -95,52 +95,51 @@ td {
 					<sec:authentication property="user.id" var="currentid" />
 					<c:if test="${b.user.id==currentid}"> --%>
 
-						<tbody>
-							<tr style="height: 170px;">
-								<td><input type="checkbox" name="chBox" class="chBox"
-									value="${b.id}" /> <script>
-										$(".chBox").click(
-												function() {
-													$("#allCheck").prop(
-															"checked", false);
-												});
-									</script></td>
-								<td><a href="/guest/productdetail/${b.product.id}"><img
-										src="/images/${b.product.image_url}" class="imgg"></a></td>
-								<td><a href="/guest/productdetail/${b.product.id}"
-									style="color: black;">${b.product.name}</a></td>
-								<td>${b.color.color}</td>
-								<td>${b.product.price}</td>
-								<td><span><fmt:formatNumber
-											value="${b.product.price-(b.product.discount*b.product.price)/100}"
-											pattern="###,###,###" /></span></td>
-								<td>${b.count}</td>
-								<td><span><fmt:formatNumber
-											value="${(b.product.price-(b.product.discount*b.product.price)/100)* b.count}"
-											pattern="###,###,###" />원</span></td>
-								<td>
-
-									<!-- <button class="btn btn-dark">주문하기</button> -->
-									<a href="/user/order/${b.id}" class="btn btn-dark">주문하기</a>
-									<br /> <br /> 
-									<a href="/user/delete/${b.id}" class="btn"
-									onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> 
-									<%-- <button class="btn" onclick="location.href='/user/delete/${b.id}'">
+				<tbody>
+					<tr style="height: 170px;">
+						<td><input type="checkbox" name="chBox" class="chBox"
+							data-basket="${b.id}" /> <script>
+								$(".chBox").click(function() {
+									$("#allCheck").prop("checked", false);
+								});
+							</script></td>
+						<td><a href="/guest/productdetail/${b.product.id}"><img
+								src="/images/${b.product.image_url}" class="imgg"></a></td>
+						<td><a href="/guest/productdetail/${b.product.id}"
+							style="color: black;">${b.product.name}</a></td>
+						<td>${b.color.color}</td>
+						<td>${b.product.price}</td>
+						<td><span><fmt:formatNumber
+									value="${b.product.price-(b.product.discount*b.product.price)/100}"
+									pattern="###,###,###" /></span></td>
+						<td>${b.count}</td>
+						<td><span><fmt:formatNumber
+									value="${(b.product.price-(b.product.discount*b.product.price)/100)* b.count}"
+									pattern="###,###,###" />원</span></td>
+						<td>
+							<!-- <button class="btn btn-dark">주문하기</button> --> <a
+							href="/user/order/${b.id}" class="btn btn-dark">주문하기</a> <br />
+							<br /> <a href="/user/delete/${b.id}" class="btn"
+							onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> <%-- <button class="btn" onclick="location.href='/user/delete/${b.id}'">
 									삭제</button>  --%>
-								</td>
-							</tr>
-						</tbody>
-						<c:set var="sum" value="${sum + (b.product.price-(b.product.discount*b.product.price)/100)* b.count}" />
-					<%-- </c:if>
+						</td>
+					</tr>
+				</tbody>
+				<c:set var="sum"
+					value="${sum + (b.product.price-(b.product.discount*b.product.price)/100)* b.count}" />
+
+				<%-- </c:if>
 				</sec:authorize> --%>
 			</c:forEach>
 		</table>
-		
+
 		<hr />
 		<br /> <br />
 		<div class="result">
 			<div class="sum">
-				총 합계: <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
+				총 합계:
+				<fmt:formatNumber pattern="###,###,###" value="${sum}" />
+				원
 			</div>
 		</div>
 		<hr />
@@ -158,15 +157,39 @@ td {
 				<span class="glyphicon glyphicon-check" style="margin: 4px;"></span>선택상품주문
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button type="button" class="btn"
+
+			<button type="button" class="selectDelete_btn"
 				style="font-size: 16px; width: 140px; height: 40px; background-color: #FF7851;">
 				<span class="glyphicon glyphicon-remove" style="margin: 4px;"></span>
 				선택삭제
 			</button>
+			<script>
+				$(".selectDelete_btn").click(function() {
+					var confirm_val = confirm("정말 삭제하시겠습니까?");
+
+					if (confirm_val) {
+						var checkArr = new Array();
+
+						$("input[class='chBox']:checked").each(function() {
+							checkArr.push($(this).attr("data-basket"));
+						});
+
+						$.ajax({
+							url : "/user/deleteA",
+							type : "post",
+							data : {
+								chbox : checkArr
+							},
+							/* success : function() {
+								location.href = "redirect:/user/basket";
+							} */
+						});
+					}
+				});
+			</script>
+
 		</div>
 		<br /> <br /> <br />
-
-
 	</div>
 	<%@ include file="bottom.jsp"%>
 </body>

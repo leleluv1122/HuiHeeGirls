@@ -31,22 +31,33 @@ table {
 }
 </style>
 <script>
-	$(document).ready(function() {
-		$('.slider').slider();
-	});
+	var index = 0; //이미지에 접근하는 인덱스
+	window.onload = function() {
+		slideShow();
+	}
+
+	function slideShow() {
+		var i;
+		var x = document.getElementsByClassName("slide1");
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
+		}
+		index++;
+		if (index > x.length) {
+			index = 1;
+		}
+		x[index - 1].style.display = "block";
+		setTimeout(slideShow, 4000);
+	}
 </script>
 <title>히히걸즈</title>
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
-		<div class="slider">
-			<ul class="slides">
-				<c:forEach begin="1" end="1" var="i">
-					<li><img src="/images/index${i}.jpg"
-						style="width: 1020px; height: auto;"></li>
-				</c:forEach>
-			</ul>
+		<div style="text-align:center;margin:auto;">
+			<a href="/guest/productdetail/10"><img class="slide1" src="/images/index1.jpg" style="width:1100px; height:auto;"></a>
+			<a href="/guest/productdetail/11"><img class="slide1" src="/images/index2.jpg" style="width:1100px; height:auto;"></a>
 		</div>
 		<br /> <br /> <br /> <br /> <br />
 		<table style="margin: 50px;">

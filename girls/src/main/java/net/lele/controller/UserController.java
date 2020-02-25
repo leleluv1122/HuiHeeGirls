@@ -73,7 +73,6 @@ public class UserController {
 	@RequestMapping(value = "user/delete/{id}")
 	public String delete(@PathVariable("id") int id, Model model, Basket basket) throws Exception {
 		basketService.delete(id);
-
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("basket", basketService.findAll());
 		return "redirect:/user/basket";
@@ -91,14 +90,26 @@ public class UserController {
 	public String basket(Model model, Basket basket) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName(); // 이거도 jh_o214
 		model.addAttribute("category", categoryService.findAll());
-		/* model.addAttribute("basket", basketService.findAll()); */
 		model.addAttribute("basket", basketService.findByUserUserId(userId));
+
+		/* model.addAttribute("basket", basketService.findAll()); */
 		/*
 		 * Object userId =
 		 * SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		 * //userid출력됨 (jh_o214)
 		 */
 		return "user/basket";
+	}
+
+	@RequestMapping(value = "user/deleteA", method = RequestMethod.POST)
+	public String deleteA(@PathVariable("chbox[]") List<String> Arr, Basket basket) throws Exception {
+		int cartNum = 0;	
+		for(String i : Arr) {
+			cartNum = Integer.parseInt(i);
+			/* basket.setId(cartNum); */
+			basketService.delete(cartNum);
+		}
+		return "redirect:/user/basket";
 	}
 
 }

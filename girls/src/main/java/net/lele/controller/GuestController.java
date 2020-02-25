@@ -22,6 +22,7 @@ import net.lele.service.BoardService;
 import net.lele.service.CategoryService;
 import net.lele.service.ProductService;
 import net.lele.service.Product_colorService;
+import net.lele.service.Product_detailService;
 import net.lele.service.UserService;
 
 @Controller
@@ -41,6 +42,8 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	BasketService basketService;
 	@Autowired
 	Product_colorService ps;
+	@Autowired
+	Product_detailService pd;
 
 	@RequestMapping({ "/", "guest/index" })
 	public String index(Model model) {
@@ -65,6 +68,7 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("product", productService.findAll());
 		model.addAttribute("colors", ps.findByProductId(id));
+		model.addAttribute("detail", pd.findByProductId(id));
 		model.addAttribute("idd", id);
 		return "guest/productdetail";
 	}
