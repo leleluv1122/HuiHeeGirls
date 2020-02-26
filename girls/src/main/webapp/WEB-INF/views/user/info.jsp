@@ -23,6 +23,10 @@ table {
 	table-layout: fixed;
 	word-break: break-all;
 }
+td:nth-child(1) {
+	width: 100px;
+	height: 50px;
+}
 td {
 	margin: 15px;
 	line-height: 300%;

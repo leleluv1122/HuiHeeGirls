@@ -19,6 +19,11 @@ input.form-control.w200 {
 	width: 200px;
 }
 
+input.form-control.w2h1 {
+	width: 200px;
+	height: 100px;
+}
+
 input.form-control.w300 {
 	width: 300px;
 }
@@ -65,8 +70,6 @@ div.container {
 	/* 
 	width: 900px; */
 }
-
-
 
 img {
 	float: left;

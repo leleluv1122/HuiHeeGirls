@@ -170,7 +170,7 @@ ul.menu li {
 			<br />
 			<hr />
 
-			<div id="prdQnA" style="height: 1000px; width: 1200px;">
+			<div id="prdQnA" style="height: 700px; width: 1200px;">
 				<ul class="menu">
 					<li><a href="#prdDetail" style="color: black;">detail</a></li>
 					<li><a href="#prdReview" style="color: black;">review</a></li>
@@ -178,8 +178,8 @@ ul.menu li {
 				</ul>
 				<br /> <br /> <br />
 				<div class="qna">
-					<a href="/guest/qna/${idd}" class="btn btn-dark" style="float: right;margin:15px;">문의하기</a>
-					<table class="table table-hover" style="width: 1150px;">
+					<a href="/guest/qna/${idd}" class="btn btn-dark">문의하기</a>
+					<table class="table table-hover" style="width: 900px;">
 						<thead>
 							<tr>
 								<th style="background-color: white;">contents</th>
@@ -191,7 +191,8 @@ ul.menu li {
 							<c:forEach var="q" items="${qna}">
 								<c:if test="${q.product.id ==idd }">
 									<tr>
-										<td>${q.title}</td>
+										<td><a style="color: black; cursor: pointer"
+											href="/guest/qna_password/${q.id}">${q.title.title}</a></td>
 										<td>${q.writer}</td>
 										<td><fmt:formatDate value="${q.date}"
 												pattern="yyyy.MM.dd HH:mm:ss" /></td>

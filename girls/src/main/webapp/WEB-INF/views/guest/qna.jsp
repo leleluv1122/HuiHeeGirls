@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:url var="R" value="/" />
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -24,14 +25,55 @@ table {
 	table-layout: fixed;
 	word-break: break-all;
 }
+
+td:nth-child(1) {
+	width: 100px;
+	height: 50px;
+}
 </style>
 <title>문의하기</title>
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
-	
+
 	<div class="container">
-		
+		<form:form method="post" modelAttribute="product_qna">
+			<div class="form-group">
+				<form:hidden path="product" value="${idd}" />
+			</div>
+			<br />
+			<div class="form-group">
+				<label>제목</label>
+				<form:select path="title" class="form-control w200" itemValue="id"
+					itemLabel="title" items="${qna_title}" />
+			</div>
+			<div class="form-group">
+				<label>작성자</label>
+				<sec:authorize access="authenticated">
+					<sec:authentication property="user.name" var="current_name" />
+					<form:input path="writer" value="${current_name}" readonly="true" />
+				</sec:authorize>
+				<sec:authorize access="not authenticated">
+					<form:input path="writer" class="form-control w200" />
+				</sec:authorize>
+				<form:errors path="writer" class="error" />
+			</div>
+			<div class="form-group">
+				<label>내용</label>
+				<form:input path="detail" class="form-control w2h1" />
+				<form:errors path="detail" class="error" />
+			</div>
+			<div class="form-group">
+				<label>비밀번호</label>
+				<form:password path="password" class="form-control w200" />
+				<form:errors path="password" class="error" />
+			</div>
+
+			<button type="submit" onclick="return confirm('작성하시겠습니까?')"
+				class="btn btn-dark">
+				<i class="glyphicon glyphicon-pencil" style="padding-right: 3px;"></i>작성
+			</button>
+		</form:form>
 	</div>
 	<%@ include file="bottom.jsp"%>
 </body>
