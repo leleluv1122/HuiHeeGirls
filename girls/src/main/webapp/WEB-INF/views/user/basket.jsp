@@ -180,9 +180,9 @@ td {
 							data : {
 								chbox : checkArr
 							},
-							/* success : function() {
+							success : function() {
 								location.href = "redirect:/user/basket";
-							} */
+							}
 						});
 					}
 				});

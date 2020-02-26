@@ -55,9 +55,13 @@ table {
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
-		<div style="text-align:center;margin:auto;">
-			<a href="/guest/productdetail/10"><img class="slide1" src="/images/index1.jpg" style="width:1100px; height:auto;"></a>
-			<a href="/guest/productdetail/11"><img class="slide1" src="/images/index2.jpg" style="width:1100px; height:auto;"></a>
+		<div style="text-align: center; margin: auto;">
+			<a href="/guest/productdetail/10"><img class="slide1"
+				src="/images/index1.jpg" style="width: 1100px; height: auto;"></a>
+			<a href="/guest/productdetail/11"><img class="slide1"
+				src="/images/index2.jpg" style="width: 1100px; height: auto;"></a>
+			<a href="/guest/productdetail/12"><img class="slide1"
+				src="/images/index.jpg" style="width: 1100px; height: auto;"></a>
 		</div>
 		<br /> <br /> <br /> <br /> <br />
 		<table style="margin: 50px;">

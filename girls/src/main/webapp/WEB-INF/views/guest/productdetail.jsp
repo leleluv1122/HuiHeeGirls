@@ -51,7 +51,7 @@ ul.menu li {
 	<!-- onload="init();" -->
 	<%@ include file="nav.jsp"%>
 	<div class="container">
-		<div style="height: 750px; width: auto;">
+		<div style="height: 700px; width: auto;">
 			<c:forEach var="p" items="${product}">
 				<c:if test="${p.id ==idd }">
 
@@ -130,7 +130,7 @@ ul.menu li {
 		<hr />
 
 		<div>
-			<div id="prdDetail" style="height: 4300px; width: 1200px;">
+			<div id="prdDetail" style="height: 4100px; width: 1200px;">
 				<ul class="menu">
 					<li class="selected"><a href="#prdDetail"
 						style="color: black;">detail</a></li>

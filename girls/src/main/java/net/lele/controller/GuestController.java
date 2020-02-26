@@ -68,7 +68,7 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 		 * model.addAttribute("ca", c);
 		 */
 		model.addAttribute("idd", id);
-		model.addAttribute("product", productService.findAll());
+		model.addAttribute("product", productService.findAllByOrderByIdDesc());
 		return "guest/productlist";
 	}
 

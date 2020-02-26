@@ -33,7 +33,7 @@
 
 .pl {
 	width: 220px;
-	heigjt: 280px;
+	height: 280px;
 }
 </style>
 
@@ -42,6 +42,13 @@
 .pl {
 	margin: 10px;
 }
+
+ul.aa li {
+	list-style-type: none;
+	float: left;
+	margin-left: 20px;
+	display: inline-block;
+}
 </style>
 </head>
 <body>
@@ -49,8 +56,26 @@
 	<div class="container">
 		<c:forEach var="p" items="${product}">
 			<c:if test="${p.category.id ==idd }">
-				<div class="pl">
-					<table>
+				<div style="height: 400px; width: 250px;float:left;margin:10px;">
+
+					<div class="imgggg">
+						<a href="/guest/productdetail/${p.id}"><img
+							src="/images/${p.image_url}" class="imgg"></a>
+					</div>
+					<div class="name">
+						<a href="/guest/productdetail/${p.id}"><span
+							style="font-size: 13px; color: #585858; font-weight: bold;">${p.name}</span></a>
+					</div>
+					<div class="d">
+						 <br /><span style="font-size: 11px; color: #999999;">${p.description}</span> <br />
+						<label style="font-size: 12px; color: #333333; font-weight: bold;">상품가:</label> 
+						<span><fmt:formatNumber value="${p.price}"
+								pattern="###,###,###" />원</span>  <br /><label
+							style="font-size: 12px; color: #333333; font-weight: bold;">할인가:</label><span><fmt:formatNumber
+								value="${p.price-(p.price*p.discount)/100}"
+								pattern="###,###,###" />원</span>
+					</div>
+					<%-- <table>
 						<tr>
 							<td><a href="/guest/productdetail/${p.id}"><img
 									src="/images/${p.image_url}" class="imgg"></a></td>
@@ -70,7 +95,7 @@
 							<td style="font-size: 12px; color: #333333; font-weight: bold;"><label>할인가:</label><span><fmt:formatNumber
 										value="${p.price-(p.price*p.discount)/100}" pattern="###,###,###" />원</span></td>
 						</tr>
-					</table>
+					</table> --%>
 				</div>
 			</c:if>
 		</c:forEach>

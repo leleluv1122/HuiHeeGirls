@@ -34,47 +34,51 @@ table {
 </style>
 <script>
 	var index = 0; //이미지에 접근하는 인덱스
-	window.onload = function(){
+	window.onload = function() {
 		slideShow();
 	}
-	
-	function slideShow(){
+
+	function slideShow() {
 		var i;
 		var x = document.getElementsByClassName("slide1");
-		for(i = 0;i<x.length;i++){
-			x[i].style.display = "none"; 
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
 		}
 		index++;
-		if(index>x.length){
+		if (index > x.length) {
 			index = 1;
 		}
-		x[index-1].style.display="block";
-		setTimeout(slideShow, 4000);
+		x[index - 1].style.display = "block";
+		setTimeout(slideShow, 3000);
 	}
 </script>
 <title>히히걸즈</title>
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
-	
+
 	<div class="container">
-		<div style="text-align:center;margin:auto;">
-			<a href="/guest/productdetail/10"><img class="slide1" src="/images/index1.jpg" style="width:1100px; height:auto;"></a>
-			<a href="/guest/productdetail/11"><img class="slide1" src="/images/index2.jpg" style="width:1100px; height:auto;"></a>
+		<div style="text-align: center; margin: auto;">
+			<a href="/guest/productdetail/10"><img class="slide1"
+				src="/images/index1.jpg" style="width: 1100px; height: auto;"></a>
+			<a href="/guest/productdetail/11"><img class="slide1"
+				src="/images/index2.jpg" style="width: 1100px; height: auto;"></a>
+			<a href="/guest/productdetail/12"><img class="slide1"
+				src="/images/index.jpg" style="width: 1100px; height: auto;"></a>
 		</div>
 		<br /> <br /> <br /> <br /> <br />
 		<table style="margin: 50px;">
 
 			<tr>
-				<td><a href="productlist/4"><img
-						src="/images/label1.jpg" style="width: 330px; height: auto;"></a>
-				</td>
+				<td><a href="productlist/4"><img src="/images/label1.jpg"
+						style="width: 330px; height: auto;"></a></td>
 				<td><a href="productlist/2"><img src="/images/label2.jpg"
-					style="width: 330px; height: auto;"></a></td>
+						style="width: 330px; height: auto;"></a></td>
 				<td><img src="/images/label3.jpg"
 					style="width: 330px; height: auto;"></td>
 			</tr>
-		</table><%-- 
+		</table>
+		<%-- 
 
 
 		<c:forEach begin="1" end="2" var="i">
