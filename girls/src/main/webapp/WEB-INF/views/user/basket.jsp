@@ -147,12 +147,12 @@ td {
 		<div style="text-align: right;"></div>
 		<br /> <br /> <br /> <br />
 		<div style="text-align: center;">
-			<button class="btn"
+			<button class="allorder_btn"
 				style="font-size: 16px; width: 140px; height: 40px; background-color: #F3969A;">
 				<span class="glyphicon glyphicon-ok" style="margin: 4px;"></span>전체상품주문
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button class="btn"
+			<button class="order_btn"
 				style="font-size: 16px; width: 140px; height: 40px; background-color: #6CC3D5;">
 				<span class="glyphicon glyphicon-check" style="margin: 4px;"></span>선택상품주문
 			</button>
@@ -180,8 +180,12 @@ td {
 							data : {
 								chbox : checkArr
 							},
-							success : function() {
-								location.href = "redirect:/user/basket";
+							success : function(result) {
+								if (result == 1) {
+									location.href = "/user/basket";
+								} else{
+									alert("삭제 실패");
+								}
 							}
 						});
 					}

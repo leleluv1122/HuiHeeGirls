@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.lele.domain.Basket;
 import net.lele.domain.Board;
@@ -101,15 +103,16 @@ public class UserController {
 		return "user/basket";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "user/deleteA", method = RequestMethod.POST)
-	public String deleteA(@PathVariable("chbox[]") List<String> Arr, Basket basket) throws Exception {
-		int cartNum = 0;	
+	public int deleteA(@RequestParam("chbox[]") List<String> Arr, Basket basket) throws Exception {
+		int result = 0;
 		for(String i : Arr) {
-			cartNum = Integer.parseInt(i);
 			/* basket.setId(cartNum); */
-			basketService.delete(cartNum);
+			basketService.delete(Integer.parseInt(i));
 		}
-		return "redirect:/user/basket";
+		result = 1;
+		return result;
 	}
 
 }
