@@ -20,4 +20,11 @@ public class Product_detailService {
 	public List<Product_detail> findByProductId(int id){
 		return product_detailRepository.findByProductId(id);
 	}
+	
+	public void save(Product_detail product_detail) {
+		Product_detail pd = new Product_detail();
+		pd.setProduct(product_detail.getProduct());
+		pd.setDetail(product_detail.getDetail());
+		product_detailRepository.save(pd);
+	}
 }

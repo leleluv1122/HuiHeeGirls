@@ -9,32 +9,30 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import net.lele.service.MyAuthenticationProvider;
 
-
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter
-{
-    @Autowired MyAuthenticationProvider myAuthenticationProvider;
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	MyAuthenticationProvider myAuthenticationProvider;
 
-    @Override
-    public void configure(WebSecurity web) throws Exception
-    {
-        web.ignoring().antMatchers("/res/**");
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/res/**");
 		/* web.ignoring().antMatchers("/static/images/**"); */
-    }
-    // /res/** 패턴의 URL은 보안검사를 하지 말고 무시하라는 설정 (리소스파일들)
+	}
+	// /res/** 패턴의 URL은 보안검사를 하지 말고 무시하라는 설정 (리소스파일들)
 
-    @Override
+	@Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests() //권한 설정 시작    /   앞>>>>뒤 - 우선순위
-        .antMatchers("/", "/images/**", "/resources/**", "/resources/images/**")    
-        	.permitAll()
-        	.antMatchers("/admin/**").access("ROLE_ADMIN")
+			.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")   /* .access("ROLE_ADMIN") */
             //admin/** 패턴은 ROLE_ADMIN권한소유자만 요청가능 아니면 거부당함
             .antMatchers("/guest/**").permitAll()
             // 로그인하지 않은 사용자도 허용
             .antMatchers("/").permitAll()
             // 모든 사용자 ㅇㅅㅇ
+        	.antMatchers("/", "/images/**", "/resources/**", "/resources/images/**")    
+        	.permitAll()
             .antMatchers("/**").authenticated();
         // /** 패턴은 로그인된 사용자에게만 허용
 

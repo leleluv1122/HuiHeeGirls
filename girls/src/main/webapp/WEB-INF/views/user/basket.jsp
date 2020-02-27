@@ -82,9 +82,9 @@ td {
 						</script></th>
 					<th>이미지</th>
 					<th>상품정보</th>
-					<th>색상</th>
 					<th>판매가</th>
 					<th>할인가</th>
+					<th>색상</th>
 					<th>수량</th>
 					<th>합계</th>
 					<th>선택</th>
@@ -107,11 +107,11 @@ td {
 								src="/images/${b.product.image_url}" class="imgg"></a></td>
 						<td><a href="/guest/productdetail/${b.product.id}"
 							style="color: black;">${b.product.name}</a></td>
-						<td>${b.color.color}</td>
 						<td>${b.product.price}</td>
 						<td><span><fmt:formatNumber
 									value="${b.product.price-(b.product.discount*b.product.price)/100}"
 									pattern="###,###,###" /></span></td>
+						<td>${b.color.color}</td>
 						<td>${b.count}</td>
 						<td><span><fmt:formatNumber
 									value="${(b.product.price-(b.product.discount*b.product.price)/100)* b.count}"

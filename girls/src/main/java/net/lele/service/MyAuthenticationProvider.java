@@ -36,7 +36,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
         String role = "";
         switch (user.getUserType()) {
-        case "관리자": role = "ROLE_ADMIN"; break;
+        case "admin": role = "ROLE_ADMIN"; break;
         case "user": role = "ROLE_STUDENT"; break;
         }
         // User 테이블의 userType 필드의 값은 '관리자', 'user'

@@ -20,4 +20,11 @@ public class Product_colorService {
 	public List<Product_color> findByProductId(int id){
 		return product_colorRepository.findByProductId(id);
 	}
+	
+	public void save(Product_color pcolor) {
+		Product_color pc = new Product_color();
+		pc.setProduct(pcolor.getProduct());
+		pc.setColor(pcolor.getColor());
+		product_colorRepository.save(pc);
+	}
 }
