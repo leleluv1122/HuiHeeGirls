@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:url var="R" value="/" />
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -23,6 +24,43 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
+.orderInfo {
+	border: 5px solid #eee;
+	padding: 20px;
+	display: none;
+}
+
+.orderInfo .inputArea {
+	margin: 10px 0;
+}
+
+.orderInfo .inputArea label {
+	display: inline-block;
+	width: 120px;
+	margin-right: 10px;
+}
+
+.orderInfo .inputArea input {
+	font-size: 14px;
+	padding: 5px;
+}
+
+#userAddr2, #userAddr3 {
+	width: 250px;
+}
+
+.orderInfo .inputArea:last-child {
+	margin-top: 30px;
+}
+
+.orderInfo .inputArea button {
+	font-size: 20px;
+	border: 2px solid #ccc;
+	padding: 5px 10px;
+	background: #fff;
+	margin-right: 20px;
+}
+
 table {
 	table-layout: fixed;
 	word-break: break-all;
@@ -56,6 +94,39 @@ td {
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
+		<button type="button" class="selectDelete_btn"
+			style="font-size: 12px; width: 100px; height: 24px; background-color: #FF7851; margin: 3px; float: right;">
+			<span class="glyphicon glyphicon-remove" style="margin: 2px;"></span>
+			선택삭제
+		</button>
+		<script>
+			$(".selectDelete_btn").click(function() {
+				var confirm_val = confirm("정말 삭제하시겠습니까?");
+
+				if (confirm_val) {
+					var checkArr = new Array();
+
+					$("input[class='chBox']:checked").each(function() {
+						checkArr.push($(this).attr("data-basket"));
+					});
+
+					$.ajax({
+						url : "/user/deleteA",
+						type : "post",
+						data : {
+							chbox : checkArr
+						},
+						success : function(result) {
+							if (result == 1) {
+								location.href = "/user/basket";
+							} else {
+								alert("삭제 실패");
+							}
+						}
+					});
+				}
+			});
+		</script>
 		<table style="width: 100%">
 			<colgroup>
 				<col width="4%" />
@@ -91,10 +162,6 @@ td {
 				</tr>
 			</thead>
 			<c:forEach var="b" items="${basket}">
-				<%-- <sec:authorize access="authenticated">
-					<sec:authentication property="user.id" var="currentid" />
-					<c:if test="${b.user.id==currentid}"> --%>
-
 				<tbody>
 					<tr style="height: 170px;">
 						<td><input type="checkbox" name="chBox" class="chBox"
@@ -117,9 +184,9 @@ td {
 									value="${(b.product.price-(b.product.discount*b.product.price)/100)* b.count}"
 									pattern="###,###,###" />원</span></td>
 						<td>
-							<!-- <button class="btn btn-dark">주문하기</button> --> <a
+							<!-- <button class="btn btn-dark">주문하기</button> --> <%-- <a
 							href="/user/order/${b.id}" class="btn btn-dark">주문하기</a> <br />
-							<br /> <a href="/user/delete/${b.id}" class="btn"
+							<br /> --%> <a href="/user/delete/${b.id}" class="btn btn-dark"
 							onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> <%-- <button class="btn" onclick="location.href='/user/delete/${b.id}'">
 									삭제</button>  --%>
 						</td>
@@ -144,13 +211,73 @@ td {
 		</div>
 		<hr />
 		<br /> <br />
+
+		<%-- <div class="orderOpne">
+			<button type="button" class="orderOpne_bnt"
+				style="font-size: 16px; width: 140px; height: 40px; background-color: #F3969A;">주문
+				정보 입력</button>
+			<script>
+				$(".orderOpne_bnt").click(function() {
+					$(".orderInfo").slideDown();
+					$(".orderOpne_bnt").slideUp();
+				});
+			</script>
+		</div>
+
+		<div class="orderInfo">
+
+			<form:form method="post" modelAttribute="orders" autocomplete="off">
+				<form:hidden path="amount" value="${sum}" />
+				<sec:authorize access="authenticated">
+					<sec:authentication property="user.id" var="currentid" />
+					<form:hidden path="user" value="${currentid}" />
+				</sec:authorize>
+				<div class="inputArea">
+					<label for="">수령인</label>
+					<form:input path="orderRec" required="required" />
+				</div>
+				<div class="inputArea">
+					<label for="orderPhon">수령인 연락처</label>
+					<form:input path="orderPhon" required="required" />
+				</div>
+				<div class="inputArea">
+					<label for="userAddr1">우편번호</label>
+					<form:input path="userAddr1" required="required" />
+				</div>
+				<div class="inputArea">
+					<label for="userAddr2">1차주소</label>
+					<form:input path="userAddr2" required="required" />
+				</div>
+				<div class="inputArea">
+					<label for="userAddr3">2차주소</label>
+					<form:input path="userAddr3" required="required" />
+				</div>
+				<div class="inputArea">
+					<button type="submit" class="order_btn"
+						style="font-size: 16px; width: 140px; height: 40px; background-color: #f9f0ff;">주문하기</button>
+					<button type="button" class="cancel_btn"
+						style="font-size: 16px; width: 140px; height: 40px; background-color: #fff0f2;">취소하기</button>
+					<script>
+						$(".cancel_btn").click(function() {
+							$(".orderInfo").slideUp();
+							$(".orderOpne_bnt").slideDown();
+						});
+					</script>
+				</div>
+
+			</form:form>
+		</div> --%>
+
+
+
+
 		<div style="text-align: right;"></div>
 		<br /> <br /> <br /> <br />
 		<div style="text-align: center;">
-			<button class="allorder_btn"
+			<a class="btn" href="/user/allorder"
 				style="font-size: 16px; width: 140px; height: 40px; background-color: #F3969A;">
 				<span class="glyphicon glyphicon-ok" style="margin: 4px;"></span>전체상품주문
-			</button>
+			</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="order_btn"
 				style="font-size: 16px; width: 140px; height: 40px; background-color: #6CC3D5;">
@@ -158,39 +285,7 @@ td {
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-			<button type="button" class="selectDelete_btn"
-				style="font-size: 16px; width: 140px; height: 40px; background-color: #FF7851;">
-				<span class="glyphicon glyphicon-remove" style="margin: 4px;"></span>
-				선택삭제
-			</button>
-			<script>
-				$(".selectDelete_btn").click(function() {
-					var confirm_val = confirm("정말 삭제하시겠습니까?");
 
-					if (confirm_val) {
-						var checkArr = new Array();
-
-						$("input[class='chBox']:checked").each(function() {
-							checkArr.push($(this).attr("data-basket"));
-						});
-
-						$.ajax({
-							url : "/user/deleteA",
-							type : "post",
-							data : {
-								chbox : checkArr
-							},
-							success : function(result) {
-								if (result == 1) {
-									location.href = "/user/basket";
-								} else{
-									alert("삭제 실패");
-								}
-							}
-						});
-					}
-				});
-			</script>
 
 		</div>
 		<br /> <br /> <br />

@@ -11,21 +11,18 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Order {
+public class Order_detail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	
 	@ManyToOne
-	@JoinColumn(name = "userid")
-	User user;
+	@JoinColumn(name = "orderid")
+	Orders orders;
 	
 	@ManyToOne
 	@JoinColumn(name = "productid")
 	Product product;
 	
-	String status;
-	@ManyToOne
-	@JoinColumn(name="color")
-	Product_color color;
+	int count;
 }

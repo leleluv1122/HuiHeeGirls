@@ -44,5 +44,10 @@ public class BasketService {
 	public void delete(int id) {
 		basketRepository.deleteById(id);
 	}
+	
+	/*
+	 * public void deleteByUserUserId(String userId) {
+	 * basketRepository.deleteByUserUserId(userId); }
+	 */
 
 }

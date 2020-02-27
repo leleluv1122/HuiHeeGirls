@@ -49,7 +49,7 @@ td {
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
-		<table style="width: 80%">
+		<%-- <table style="width: 80%">
 			<colgroup>
 				<col width="20%" />
 				<col width="20%" />
@@ -81,7 +81,7 @@ td {
 					</c:forEach>
 				</tr>
 			</tbody>
-		</table>
+		</table> --%>
 
 	</div>
 	<%@ include file="bottom.jsp"%>
