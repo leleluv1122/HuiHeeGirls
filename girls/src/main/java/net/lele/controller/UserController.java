@@ -87,20 +87,32 @@ public class UserController {
 		return "redirect:/user/basket";
 	}
 
-	/*
-	 * @RequestMapping(value = "/user/order/{id}") public String
-	 * order(@PathVariable("id") int id, Model model, Basket basket) throws
-	 * Exception { model.addAttribute("category", categoryService.findAll());
-	 * model.addAttribute("basket", basketService.findAll());
-	 * model.addAttribute("idd", id); return "/user/order"; } //1개만 주문할경우
-	 */
-
 	@RequestMapping(value = "user/basket")
-	public String basket(Model model, Basket basket, Orders orders) throws Exception {
+	public String basket(Model model, Basket basket) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName(); // 이거도 jh_o214
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("basket", basketService.findByUserUserId(userId));
 		return "user/basket";
+	}
+
+	@RequestMapping(value = "user/allorder")
+	public String allorder(Model model, Orders orders) throws Exception {
+		model.addAttribute("category", categoryService.findAll());
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("basket", basketService.findByUserUserId(userId));
+		return "user/allorder";
+	}
+
+	@RequestMapping(value = "user/allorder", method = RequestMethod.POST)
+	public String allorder(Model model, Orders orders, BindingResult bindingResult) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		if (orderService.hasErrors(orders, bindingResult)) {
+			model.addAttribute("category", categoryService.findAll());
+			model.addAttribute("basket", basketService.findByUserUserId(userId));
+		}
+		orderService.save(orders);
+		/* basketService.deleteByUserUserId(userId); */ //삭제는 아직 안된다...
+		return "redirect:/user/basket";
 	}
 
 	@ResponseBody
@@ -108,15 +120,12 @@ public class UserController {
 	public int deleteA(@RequestParam("chbox[]") List<String> Arr, Basket basket) throws Exception {
 		int result = 0;
 		for (String i : Arr) {
-			/* basket.setId(cartNum); */
 			basketService.delete(Integer.parseInt(i));
 		}
 		result = 1;
 		return result;
 	}
-
 }
-
 
 /*
  * @RequestMapping(value = "user/basket", method = RequestMethod.POST) public
@@ -135,4 +144,12 @@ public class UserController {
  * Object userId =
  * SecurityContextHolder.getContext().getAuthentication().getPrincipal();
  * //userid출력됨 (jh_o214)
+ */
+
+/*
+ * @RequestMapping(value = "/user/order/{id}") public String
+ * order(@PathVariable("id") int id, Model model, Basket basket) throws
+ * Exception { model.addAttribute("category", categoryService.findAll());
+ * model.addAttribute("basket", basketService.findAll());
+ * model.addAttribute("idd", id); return "/user/order"; } //1개만 주문할경우
  */

@@ -9,15 +9,15 @@ import net.lele.domain.Basket;
 public interface BasketRepository extends JpaRepository<Basket, Integer> {
 
 	List<Basket> findByUserUserId(String userId);
-	
+
 	/*
 	 * @Modifying
 	 * 
 	 * @Query("delete from Basket b where b.userId=:userId") void
 	 * deleteByUserId(@Param("userId") String userId);
 	 */
-	
-	/* void deleteByUserUserId(String userId); */
+
+	void deleteByUserUserId(String userId);
 	/*
 	 * @Query("SELECT b.user as user, COUNT(b.count) as cnt, b.product as product, b.color as color "
 	 * + "FROM Basket b " + "GROUP BY b.user, b.product, b.color") List<Object[]>

@@ -17,11 +17,11 @@ public class BasketService {
 	public List<Basket> findAll() {
 		return basketRepository.findAll();
 	}
-	
-	public List<Basket> findByUserUserId(String userId){
+
+	public List<Basket> findByUserUserId(String userId) {
 		return basketRepository.findByUserUserId(userId);
 	}
-	
+
 	public boolean hasErrors(Basket basket, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return true;
@@ -44,10 +44,9 @@ public class BasketService {
 	public void delete(int id) {
 		basketRepository.deleteById(id);
 	}
-	
-	/*
-	 * public void deleteByUserUserId(String userId) {
-	 * basketRepository.deleteByUserUserId(userId); }
-	 */
+
+	public void deleteByUserUserId(String userId) {
+		basketRepository.deleteByUserUserId(userId);
+	}
 
 }

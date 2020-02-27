@@ -24,42 +24,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-.orderInfo {
-	border: 5px solid #eee;
-	padding: 20px;
-	display: none;
-}
-
-.orderInfo .inputArea {
-	margin: 10px 0;
-}
-
-.orderInfo .inputArea label {
-	display: inline-block;
-	width: 120px;
-	margin-right: 10px;
-}
-
-.orderInfo .inputArea input {
-	font-size: 14px;
-	padding: 5px;
-}
-
-#userAddr2, #userAddr3 {
-	width: 250px;
-}
-
-.orderInfo .inputArea:last-child {
-	margin-top: 30px;
-}
-
-.orderInfo .inputArea button {
-	font-size: 20px;
-	border: 2px solid #ccc;
-	padding: 5px 10px;
-	background: #fff;
-	margin-right: 20px;
-}
 
 table {
 	table-layout: fixed;
