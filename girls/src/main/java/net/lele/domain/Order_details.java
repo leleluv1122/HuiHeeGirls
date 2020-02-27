@@ -25,5 +25,7 @@ public class Order_details {
 	Product product;
 	
 	int count;
+	
 	int color;
+	
 }
