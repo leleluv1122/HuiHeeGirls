@@ -37,7 +37,7 @@ table {
 				<td style="width: 85%;">
 					<h1>회원 가입</h1>
 					<hr /> <form:form method="post"
-						modelAttribute="userRegistrationModel">
+						modelAttribute="userRegistrationModel" autocomplete="off">
 						<div class="form-group">
 							<label>아이디:</label>
 							<form:input path="userid" class="form-control w200" />

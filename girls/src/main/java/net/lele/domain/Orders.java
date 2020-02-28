@@ -3,6 +3,8 @@ package net.lele.domain;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,6 +15,9 @@ import lombok.Data;
 @Entity
 public class Orders {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	int rid;
+	
 	String id;
 	
 	@ManyToOne
@@ -26,4 +31,8 @@ public class Orders {
 	String orderPhon;
 	Double amount; //총가격
 	Timestamp orderDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "status")
+	Order_status status;
 }

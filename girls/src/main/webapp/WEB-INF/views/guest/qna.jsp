@@ -37,7 +37,7 @@ td:nth-child(1) {
 	<%@ include file="nav.jsp"%>
 
 	<div class="container">
-		<form:form method="post" modelAttribute="product_qna">
+		<form:form method="post" modelAttribute="product_qna" autocomplete="off">
 			<div class="form-group">
 				<form:hidden path="product" value="${idd}" />
 			</div>
@@ -45,7 +45,7 @@ td:nth-child(1) {
 			<div class="form-group">
 				<label>제목</label>
 				<form:select path="title" class="form-control w200" itemValue="id"
-					itemLabel="title" items="${qna_title}" />
+					itemLabel="title" items="${qna_title}" required="required" />
 			</div>
 			<div class="form-group">
 				<label>작성자</label>
@@ -54,18 +54,18 @@ td:nth-child(1) {
 					<form:input path="writer" value="${current_name}" readonly="true" />
 				</sec:authorize>
 				<sec:authorize access="not authenticated">
-					<form:input path="writer" class="form-control w200" />
+					<form:input path="writer" class="form-control w200" required="required" />
 				</sec:authorize>
 				<form:errors path="writer" class="error" />
 			</div>
 			<div class="form-group">
 				<label>내용</label>
-				<form:input path="detail" class="form-control w2h1" />
+				<form:input path="detail" class="form-control w2h1" required="required" />
 				<form:errors path="detail" class="error" />
 			</div>
 			<div class="form-group">
 				<label>비밀번호</label>
-				<form:password path="password" class="form-control w200" />
+				<form:password path="password" class="form-control w200" required="required" />
 				<form:errors path="password" class="error" />
 			</div>
 

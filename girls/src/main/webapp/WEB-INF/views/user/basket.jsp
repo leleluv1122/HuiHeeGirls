@@ -24,7 +24,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-
 table {
 	table-layout: fixed;
 	word-break: break-all;
@@ -58,39 +57,6 @@ td {
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
-		<button type="button" class="selectDelete_btn"
-			style="font-size: 12px; width: 100px; height: 24px; background-color: #FF7851; margin: 3px; float: right;">
-			<span class="glyphicon glyphicon-remove" style="margin: 2px;"></span>
-			선택삭제
-		</button>
-		<script>
-			$(".selectDelete_btn").click(function() {
-				var confirm_val = confirm("정말 삭제하시겠습니까?");
-
-				if (confirm_val) {
-					var checkArr = new Array();
-
-					$("input[class='chBox']:checked").each(function() {
-						checkArr.push($(this).attr("data-basket"));
-					});
-
-					$.ajax({
-						url : "/user/deleteA",
-						type : "post",
-						data : {
-							chbox : checkArr
-						},
-						success : function(result) {
-							if (result == 1) {
-								location.href = "/user/basket";
-							} else {
-								alert("삭제 실패");
-							}
-						}
-					});
-				}
-			});
-		</script>
 		<table style="width: 100%">
 			<colgroup>
 				<col width="4%" />
@@ -158,21 +124,19 @@ td {
 				</tbody>
 				<c:set var="sum"
 					value="${sum + (b.product.price-(b.product.discount*b.product.price)/100)* b.count}" />
-
-				<%-- </c:if>
-				</sec:authorize> --%>
 			</c:forEach>
 		</table>
 
 		<hr />
 		<br /> <br />
 		<div class="result">
-			<div class="sum">
+			<div class="sum" style="float:right;">
 				총 합계:
 				<fmt:formatNumber pattern="###,###,###" value="${sum}" />
 				원
 			</div>
 		</div>
+		<br />
 		<hr />
 		<br /> <br />
 
@@ -236,18 +200,52 @@ td {
 
 
 		<div style="text-align: right;"></div>
-		<br /> <br /> <br /> <br />
+		<br /> <br />
 		<div style="text-align: center;">
+			<button type="button" class="btn selectDelete_btn"
+				style="font-size: 16px; width: 140px; height: 40px; background-color: #FF7851; margin: 3px;">
+				<span class="glyphicon glyphicon-remove" style="margin: 2px;"></span>
+				선택삭제
+			</button>
+			<script>
+				$(".selectDelete_btn").click(function() {
+					var confirm_val = confirm("정말 삭제하시겠습니까?");
+
+					if (confirm_val) {
+						var checkArr = new Array();
+
+						$("input[class='chBox']:checked").each(function() {
+							checkArr.push($(this).attr("data-basket"));
+						});
+
+						$.ajax({
+							url : "/user/deleteA",
+							type : "post",
+							data : {
+								chbox : checkArr
+							},
+							success : function(result) {
+								if (result == 1) {
+									location.href = "/user/basket";
+								} else {
+									alert("삭제 실패");
+								}
+							}
+						});
+					}
+				});
+			</script>
 			<a class="btn" href="/user/allorder"
 				style="font-size: 16px; width: 140px; height: 40px; background-color: #F3969A;">
 				<span class="glyphicon glyphicon-ok" style="margin: 4px;"></span>전체상품주문
 			</a>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+			<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="order_btn"
 				style="font-size: 16px; width: 140px; height: 40px; background-color: #6CC3D5;">
 				<span class="glyphicon glyphicon-check" style="margin: 4px;"></span>선택상품주문
 			</button>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
 
 
 

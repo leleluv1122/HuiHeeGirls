@@ -31,4 +31,6 @@ public class Order_detailService {
 		oddd.setCount(od.getCount());
 		order_detailRepository.save(oddd);
 	}
+	
+	
 }

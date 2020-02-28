@@ -1,7 +1,6 @@
 package net.lele.service;
 
-import java.text.DecimalFormat;
-import java.util.Calendar;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,14 @@ public class OrderService {
 	@Autowired
 	OrdersRepository orderRepository;
 
+	public List<Orders> findByUserUserId(String userId){
+		return orderRepository.findByUserUserId(userId);
+	}
+	
+	public List<Orders> findAllByOrderByRidDesc(){
+		return orderRepository.findAllByOrderByRidDesc();
+	}
+	
 	public List<Orders> findAll() {
 		return orderRepository.findAll();
 	}
@@ -27,25 +34,19 @@ public class OrderService {
 	}
 
 	public void save(Orders order) {
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-		String subNum = "";
-		for (int i = 1; i <= 6; i++) {
-			subNum += (int) (Math.random() * 10);
-		}
-		String orderId = ymd + "/" + subNum; // 주문번호 만들기
-
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		
 		Orders o = new Orders();
-		o.setId(orderId);
+		o.setId(order.getId());
 		o.setUser(order.getUser());
 		o.setOrderRec(order.getOrderRec());
 		o.setUserAddr1(order.getUserAddr1());
 		o.setUserAddr2(order.getUserAddr2());
 		o.setUserAddr3(order.getUserAddr3());
 		o.setOrderPhon(order.getOrderPhon());
+		o.setOrderDate(timestamp);
 		o.setAmount(order.getAmount());
+		o.setStatus(order.getStatus());
 		orderRepository.save(o);
 	}
 }

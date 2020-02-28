@@ -3,6 +3,8 @@ package net.lele.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.lele.domain.Basket;
 
@@ -13,10 +15,14 @@ public interface BasketRepository extends JpaRepository<Basket, Integer> {
 	/*
 	 * @Modifying
 	 * 
-	 * @Query("delete from Basket b where b.userId=:userId") void
-	 * deleteByUserId(@Param("userId") String userId);
+	 * @Transactional
+	 * 
+	 * @Query("delete from Basket b where b.user.userId=?1") void
+	 * deleteByUserId(String userId);
 	 */
 
+	@Modifying
+	@Transactional
 	void deleteByUserUserId(String userId);
 	/*
 	 * @Query("SELECT b.user as user, COUNT(b.count) as cnt, b.product as product, b.color as color "

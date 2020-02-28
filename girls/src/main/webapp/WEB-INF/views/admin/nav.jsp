@@ -70,9 +70,12 @@
 				<li class="nav-item"><a class="nav-link" href="#"
 					style="margin-left: 20px;"><b>Q&A</b></a></li>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<li class="nav-item"><a class="nav-link" href="${R}admin/upload"
-					style="margin-left: 20px;"><b>상품업로드</b></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${R}admin/upload" style="margin-left: 20px;"><b>상품업로드</b></a></li>
 				</sec:authorize>
+				<li class="nav-item"><a class="nav-link"
+					href="${R}user/orderlist" style="margin-left: 20px;"><b>주문내역조회</b></a></li>
+
 
 			</ul>
 		</div>

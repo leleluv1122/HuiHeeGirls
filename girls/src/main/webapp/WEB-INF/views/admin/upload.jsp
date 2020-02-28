@@ -25,10 +25,10 @@
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
-		<form:form method="post" modelAttribute="product" enctype="multipart/form-data">
+		<form:form method="post" modelAttribute="product" enctype="multipart/form-data" autocomplete="off">
 			<div class="form-group">
 				<label>상품명</label>
-				<form:input path="name" class="form-control w200" />
+				<form:input path="name" class="form-control w200"  required="required" />
 			</div>
 			<div class="form-group">
 				<label>카테고리</label>
@@ -37,15 +37,15 @@
 			</div>
 			<div class="form-group">
 				<label>가격</label>
-				<form:input path="price" class="form-control w200" />
+				<form:input path="price" class="form-control w200"  required="required" />
 			</div>
 			<div class="form-group">
 				<label>할인율</label>
-				<form:input path="discount" class="form-control w200" />
+				<form:input path="discount" class="form-control w200"  required="required" />
 			</div>
 			<div class="form-group">
 				<label>설명</label>
-				<form:input path="description" class="form-control w2h1" />
+				<form:input path="description" class="form-control w2h1"  required="required" />
 			</div>
 			<div class="form-group">
 				<label>메인사진</label>

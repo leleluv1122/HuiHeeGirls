@@ -29,6 +29,7 @@
 .itemm {
 	display: none;
 }
+
 .orderInfo {
 	border: 5px solid #eee;
 	padding: 20px;
@@ -123,12 +124,21 @@
 		</div>
 		<br />
 		<hr />
+		<div class="result">
+			<div class="sum">
+				총 합계:
+				<fmt:formatNumber pattern="###,###,###" value="${sum}" />
+				원
+			</div>
+		</div>
 		<br />
 
 		<div class="orderInfo">
-
-			<form:form method="post" modelAttribute="orders" autocomplete="off">
+			<form:form method="post" modelAttribute="orders" autocomplete="off"
+				class="sform">
 				<form:hidden path="amount" value="${sum}" />
+				<form:hidden path="id" value="${orderId}" />
+				<form:hidden path="status" value="1" />
 				<sec:authorize access="authenticated">
 					<sec:authentication property="user.id" var="currentid" />
 					<form:hidden path="user" value="${currentid}" />
@@ -153,15 +163,41 @@
 					<label for="userAddr3">2차주소</label>
 					<form:input path="userAddr3" required="required" />
 				</div>
-				<div class="inputArea">
-					<button type="submit" class="order_btn"
-						style="font-size: 16px; width: 140px; height: 40px; background-color: #f9f0ff;">주문하기</button>
-				</div>
+			</form:form><%-- 
+			<form:form method="post" modelAttribute="order_details" class="sform">
+				<c:forEach var="b" items="${basket}">
+					<form:hidden path="orders" value="${orderId}" />
+					<form:hidden path="product" value="${b.product.id}" />
+					<form:hidden path="count" value="${b.count}" />
+					<form:hidden path="color" value="${b.color.color}" />
+				</c:forEach>
+			</form:form> --%>
 
-			</form:form>
+			<button type="submit" class="btn order_btn"
+				onclick="return confirm('주문 하시겠습니까?')"
+				style="font-size: 16px; width: 140px; height: 40px; background-color: #f9f0ff;">주문하기</button>
+			<!-- <script>
+				$(function() {
+					$("#order_btn").click(
+							function() {
+								$.post("/user/allorder", $(".sform")
+										.serialize(), function(data) {
+
+								});
+							});
+				});
+			</script> -->
+
 		</div>
-		<br /> <br /> <hr />
+		<br /> <br />
 	</div>
 	<%@ include file="bottom.jsp"%>
 </body>
 </html>
+
+
+
+
+<!-- <button type="submit" class="order_btn"
+						onclick="return confirm('주문 하시겠습니까?')"
+						style="font-size: 16px; width: 140px; height: 40px; background-color: #f9f0ff;">주문하기</button> -->

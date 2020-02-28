@@ -1,5 +1,7 @@
 package net.lele.controller;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.lele.domain.Basket;
 import net.lele.domain.Board;
+import net.lele.domain.Order_details;
 import net.lele.domain.Orders;
 import net.lele.service.BasketService;
 import net.lele.service.BoardService;
@@ -95,26 +98,6 @@ public class UserController {
 		return "user/basket";
 	}
 
-	@RequestMapping(value = "user/allorder")
-	public String allorder(Model model, Orders orders) throws Exception {
-		model.addAttribute("category", categoryService.findAll());
-		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("basket", basketService.findByUserUserId(userId));
-		return "user/allorder";
-	}
-
-	@RequestMapping(value = "user/allorder", method = RequestMethod.POST)
-	public String allorder(Model model, Orders orders, BindingResult bindingResult) throws Exception {
-		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		if (orderService.hasErrors(orders, bindingResult)) {
-			model.addAttribute("category", categoryService.findAll());
-			model.addAttribute("basket", basketService.findByUserUserId(userId));
-		}
-		orderService.save(orders);
-		/* basketService.deleteByUserUserId(userId); */ //삭제는 아직 안된다...
-		return "redirect:/user/basket";
-	}
-
 	@ResponseBody
 	@RequestMapping(value = "user/deleteA", method = RequestMethod.POST)
 	public int deleteA(@RequestParam("chbox[]") List<String> Arr, Basket basket) throws Exception {
@@ -124,6 +107,41 @@ public class UserController {
 		}
 		result = 1;
 		return result;
+	}
+
+	@RequestMapping(value = "user/allorder")
+	public String allorder(Model model, Orders orders, Order_details order_details) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String subNum = "";
+		for (int i = 1; i <= 6; i++) {
+			subNum += (int) (Math.random() * 10);
+		}
+		String orderId = ymd + "_" + subNum; // 주문번호 만들기
+
+		model.addAttribute("orderId", orderId);
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("basket", basketService.findByUserUserId(userId));
+		return "user/allorder";
+	}
+
+	@RequestMapping(value = "user/allorder", method = RequestMethod.POST)
+	public String allorder(Model model, Orders orders, Order_details order_details, BindingResult bindingResult) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		orderService.save(orders);
+		order_detailService.save(order_details);
+		basketService.deleteByUserUserId(userId); // 삭제는 아직 안된다... 된다
+		return "redirect:/user/orderlist";
+	}
+
+	@RequestMapping(value = "user/orderlist")
+	public String orderlist(Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("ord", orderService.findAllByOrderByRidDesc());
+		return "user/orderlist";
 	}
 }
 
