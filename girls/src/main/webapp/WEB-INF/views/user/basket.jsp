@@ -57,6 +57,7 @@ td {
 <body>
 	<%@ include file="nav.jsp"%>
 	<div class="container">
+
 		<table style="width: 100%">
 			<colgroup>
 				<col width="4%" />
@@ -91,46 +92,61 @@ td {
 					<th>선택</th>
 				</tr>
 			</thead>
-			<c:forEach var="b" items="${basket}">
-				<tbody>
-					<tr style="height: 170px;">
-						<td><input type="checkbox" name="chBox" class="chBox"
-							data-basket="${b.id}" /> <script>
-								$(".chBox").click(function() {
-									$("#allCheck").prop("checked", false);
-								});
-							</script></td>
-						<td><a href="/guest/productdetail/${b.product.id}"><img
-								src="/images/${b.product.image_url}" class="imgg"></a></td>
-						<td><a href="/guest/productdetail/${b.product.id}"
-							style="color: black;">${b.product.name}</a></td>
-						<td>${b.product.price}</td>
-						<td><span><fmt:formatNumber
-									value="${b.product.price-(b.product.discount*b.product.price)/100}"
-									pattern="###,###,###" /></span></td>
-						<td>${b.color.color}</td>
-						<td>${b.count}</td>
-						<td><span><fmt:formatNumber
-									value="${(b.product.price-(b.product.discount*b.product.price)/100)* b.count}"
-									pattern="###,###,###" />원</span></td>
-						<td>
-							<!-- <button class="btn btn-dark">주문하기</button> --> <%-- <a
+			<c:choose>
+				<c:when test="${count == 0}">
+					<tbody>
+						<tr>
+							<td colspan="9" align="center" style="height:70px;">장바구니가 비어있습니다</td>
+						</tr>
+					</tbody>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="b" items="${basket}">
+						<tbody>
+							<tr style="height: 170px;">
+								<td><input type="checkbox" name="chBox" class="chBox"
+									data-basket="${b.id}" /> <script>
+										$(".chBox").click(
+												function() {
+													$("#allCheck").prop(
+															"checked", false);
+												});
+									</script></td>
+								<td><a href="/guest/productdetail/${b.product.id}"><img
+										src="/images/${b.product.image_url}" class="imgg"></a></td>
+								<td><a href="/guest/productdetail/${b.product.id}"
+									style="color: black;">${b.product.name}</a></td>
+								<td>${b.product.price}</td>
+								<td><span><fmt:formatNumber
+											value="${b.product.price-(b.product.discount*b.product.price)/100}"
+											pattern="###,###,###" /></span></td>
+								<td>${b.color.color}</td>
+								<td>${b.count}</td>
+								<td><span><fmt:formatNumber
+											value="${(b.product.price-(b.product.discount*b.product.price)/100)* b.count}"
+											pattern="###,###,###" />원</span></td>
+								<td>
+									<!-- <button class="btn btn-dark">주문하기</button> --> <%-- <a
 							href="/user/order/${b.id}" class="btn btn-dark">주문하기</a> <br />
 							<br /> --%> <a href="/user/delete/${b.id}" class="btn btn-dark"
-							onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> <%-- <button class="btn" onclick="location.href='/user/delete/${b.id}'">
+									onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> <%-- <button class="btn" onclick="location.href='/user/delete/${b.id}'">
 									삭제</button>  --%>
-						</td>
-					</tr>
-				</tbody>
-				<c:set var="sum"
-					value="${sum + (b.product.price-(b.product.discount*b.product.price)/100)* b.count}" />
-			</c:forEach>
+								</td>
+							</tr>
+						</tbody>
+
+						<c:set var="sum"
+							value="${sum + (b.product.price-(b.product.discount*b.product.price)/100)* b.count}" />
+					</c:forEach>
+
+				</c:otherwise>
+			</c:choose>
 		</table>
 
 		<hr />
 		<br /> <br />
 		<div class="result">
-			<div class="sum" style="float:right;">
+			<div class="sum" style="float: right;">
 				총 합계:
 				<fmt:formatNumber pattern="###,###,###" value="${sum}" />
 				원

@@ -19,6 +19,7 @@ import net.lele.domain.Basket;
 import net.lele.domain.Board;
 import net.lele.domain.Order_details;
 import net.lele.domain.Orders;
+import net.lele.repository.Order_detailRepository;
 import net.lele.service.BasketService;
 import net.lele.service.BoardService;
 import net.lele.service.CategoryService;
@@ -41,6 +42,8 @@ public class UserController {
 	OrderService orderService;
 	@Autowired
 	Order_detailService order_detailService;
+	@Autowired
+	Order_detailRepository order_detailRepository;
 
 	@RequestMapping("user/index")
 	public String index(Model model) throws Exception {
@@ -94,6 +97,7 @@ public class UserController {
 	public String basket(Model model, Basket basket) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName(); // 이거도 jh_o214
 		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("count", basketService.countByUserUserId(userId));
 		model.addAttribute("basket", basketService.findByUserUserId(userId));
 		return "user/basket";
 	}
@@ -110,8 +114,15 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/allorder")
-	public String allorder(Model model, Orders orders, Order_details order_details) throws Exception {
+	public String allorder(Model model, Orders orders) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("basket", basketService.findByUserUserId(userId));
+		return "user/allorder";
+	}
+
+	@RequestMapping(value = "user/allorder", method = RequestMethod.POST)
+	public String allorder(Model model, Orders orders, BindingResult bindingResult) throws Exception {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
@@ -122,26 +133,48 @@ public class UserController {
 		}
 		String orderId = ymd + "_" + subNum; // 주문번호 만들기
 
-		model.addAttribute("orderId", orderId);
-		model.addAttribute("category", categoryService.findAll());
-		model.addAttribute("basket", basketService.findByUserUserId(userId));
-		return "user/allorder";
-	}
-
-	@RequestMapping(value = "user/allorder", method = RequestMethod.POST)
-	public String allorder(Model model, Orders orders, Order_details order_details, BindingResult bindingResult) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		orders.setId(orderId);
 		orderService.save(orders);
-		order_detailService.save(order_details);
+		List<Basket> b = basketService.findByUserUserId(userId);
+		for (int i = 0; i < b.size(); ++i) {
+			Order_details o = new Order_details();
+			o.setProduct(b.get(i).getProduct());
+			o.setColor(b.get(i).getColor());
+			o.setCount(b.get(i).getCount());
+			o.setOrderid(orderId);
+			/* o.setOrders(orders.getId()); */
+			order_detailService.save(o);
+		}
 		basketService.deleteByUserUserId(userId); // 삭제는 아직 안된다... 된다
 		return "redirect:/user/orderlist";
+		/* order_detailService.save(order_details); */
+		/*
+		 * result = 1; return result;
+		 */
 	}
 
 	@RequestMapping(value = "user/orderlist")
 	public String orderlist(Model model) {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("ord", orderService.findAllByOrderByRidDesc());
+		model.addAttribute("count", orderService.countByUserUserId(userId));
 		return "user/orderlist";
+	}
+	
+	@RequestMapping(value = "user/orderdetail/{id}")
+	public String orderdetail(@PathVariable("id") String id, Model model) throws Exception {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("order", order_detailService.findOdById(id));
+		model.addAttribute("oo", orderService.findById(id));
+		return "user/orderdetail";
+	}
+
+	@RequestMapping(value = "user/ordercancle/{id}")
+	public String ordercancle(@PathVariable("id") int id, Model model, Orders orders) throws Exception {
+		orderService.delete(id);
+		return "redirect:/user/orderlist";
 	}
 }
 

@@ -17,6 +17,15 @@ public class BasketService {
 	public List<Basket> findAll() {
 		return basketRepository.findAll();
 	}
+	
+	public int countByUserUserId(String userId) {
+		return basketRepository.countByUserUserId(userId);
+	}
+	
+	/*
+	 * public List<Object[]> findByorder(String userId){ return
+	 * basketRepository.findByorder(userId); }
+	 */
 
 	public List<Basket> findByUserUserId(String userId) {
 		return basketRepository.findByUserUserId(userId);

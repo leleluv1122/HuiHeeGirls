@@ -10,6 +10,8 @@ import net.lele.domain.Basket;
 
 public interface BasketRepository extends JpaRepository<Basket, Integer> {
 
+	int countByUserUserId(String userId);
+	
 	List<Basket> findByUserUserId(String userId);
 
 	/*
@@ -24,6 +26,12 @@ public interface BasketRepository extends JpaRepository<Basket, Integer> {
 	@Modifying
 	@Transactional
 	void deleteByUserUserId(String userId);
+	
+	/*
+	 * @Query("SELECT b.product.id as product, b.count, b.color FROM Basket b WHERE b.user.userId = ?1"
+	 * ) List<Object[]> findByorder(String userId);
+	 */
+	
 	/*
 	 * @Query("SELECT b.user as user, COUNT(b.count) as cnt, b.product as product, b.color as color "
 	 * + "FROM Basket b " + "GROUP BY b.user, b.product, b.color") List<Object[]>

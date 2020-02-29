@@ -37,32 +37,43 @@
 	<%@ include file="nav.jsp"%>
 	<div class="container">
 
-		<c:forEach var="o" items="${ord}">
-			<sec:authorize access="authenticated">
-				<sec:authentication property="user.id" var="currentId" />
-				<c:if test="${currentId == o.user.id }">
-					<div class="orderInfo">
+		<c:choose>
+			<c:when test="${count == 0 }">
+				<br /><br /><br />
+				<label>주문내역이 없습니다</label>
+				<br /><br /><br />
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="o" items="${ord}">
+					<sec:authorize access="authenticated">
+						<sec:authentication property="user.id" var="currentId" />
+						<c:if test="${currentId == o.user.id }">
+							<div class="orderInfo">
 
-						<p>
-							<span>주문번호</span><a href="#">${o.id}</a>
-						</p>
-						<p>
-							<span>수령인</span>${o.orderRec}</p>
-						<p>
-							<span>주소</span>[${o.userAddr1}] ${o.userAddr2} ${o.userAddr3}
-						</p>
-						<p>
-							<span>가격</span>
-							<fmt:formatNumber value="${o.amount}" pattern="###,###,###" />
-							원
-						</p>
-						<p>
-							<span>주문상태</span>${o.status.name}</p>
-
-					</div>
-				</c:if>
-			</sec:authorize>
-		</c:forEach>
+								<p>
+									<span>주문번호</span><a href="/user/orderdetail/${o.id}">${o.id}</a>
+								</p>
+								<p>
+									<span>수령인</span>${o.orderRec}</p>
+								<p>
+									<span>주소</span>[${o.userAddr1}] ${o.userAddr2} ${o.userAddr3}
+								</p>
+								<p>
+									<span>가격</span>
+									<fmt:formatNumber value="${o.amount}" pattern="###,###,###" />
+									원
+								</p>
+								<p>
+									<span>주문상태</span>${o.status.name}</p>
+								<a href="/user/ordercancle/${o.rid}" class="btn btn-dark" 
+								onclick="if(!confirm('주문을 취소 하시겠습니까?')){return false;}">주문취소</a>
+								<%-- <a href="/user/orderdetail/${o.id}">주문 상세..음모라써</a> --%>
+							</div>
+						</c:if>
+					</sec:authorize>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<%@ include file="bottom.jsp"%>
 </body>

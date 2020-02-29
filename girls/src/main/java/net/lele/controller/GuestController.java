@@ -108,7 +108,8 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	}
 
 	@RequestMapping(value = "guest/qna/{id}", method = RequestMethod.POST)
-	public String qna(@PathVariable("id") int id, @Valid Product_qna product_qna, BindingResult bindingResult, Model model) {
+	public String qna(@PathVariable("id") int id, @Valid Product_qna product_qna, BindingResult bindingResult,
+			Model model) {
 		if (pq.hasErrors(product_qna, bindingResult)) {
 			model.addAttribute("category", categoryService.findAll());
 			model.addAttribute("idd", id);
@@ -118,25 +119,25 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 		pq.save(product_qna);
 		return "redirect:/guest/productdetail/{id}";
 	}
-	
-	@RequestMapping(value="guest/qna_password/{id}", method= RequestMethod.GET)
+
+	@RequestMapping(value = "guest/qna_password/{id}", method = RequestMethod.GET)
 	public String qna_password(@PathVariable("id") int id, Model model) {
 		model.addAttribute("category", categoryService.findAll());
 		return "guest/qna_password";
 	}
-	
-	@RequestMapping(value="guest/qna_password/{id}", method= RequestMethod.POST)
+
+	@RequestMapping(value = "guest/qna_password/{id}", method = RequestMethod.POST)
 	public String qna_password(@PathVariable("id") int id, Model model, @RequestParam String password) {
 		model.addAttribute("idd", id);
 		Product_qna aa = pq.findById(id);
-		if(aa.getPassword().equals(EncryptionUtils.encryptMD5(password)) == false) {
+		if (aa.getPassword().equals(EncryptionUtils.encryptMD5(password)) == false) {
 			model.addAttribute("category", categoryService.findAll());
-			return "guest/qna_password";  //다시입력해주세요 만들어야된다..
+			return "guest/qna_password"; // 다시입력해주세요 만들어야된다..
 		}
 		return "redirect:/guest/qna_answer/{id}";
 	}
-	
-	@RequestMapping(value="guest/qna_answer/{id}")
+
+	@RequestMapping(value = "guest/qna_answer/{id}")
 	public String qna_answer(@PathVariable("id") int id, Model model) {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("idd", id);
@@ -182,5 +183,12 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 		model.addAttribute("orderBy", BoardRepository.orderBy); // 안댐ㅅㅣㅏㅂㄹ..
 		model.addAttribute("searchBy", BoardRepository.searchBy);
 		return "guest/boardlist";
+	}
+
+	@RequestMapping(value = "guest/qnalist")
+	public String qnalist(Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("qnalist", pq.findAllByOrderByIdDesc());
+		return "guest/qnalist";
 	}
 }

@@ -10,4 +10,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 	List<Orders> findByUserUserId(String userId);
 	
 	List<Orders> findAllByOrderByRidDesc();
+	
+	int countByUserUserId(String userId);
+	
+	List<Orders> findById(String id);
 }

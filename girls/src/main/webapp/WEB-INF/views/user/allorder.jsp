@@ -135,9 +135,9 @@
 
 		<div class="orderInfo">
 			<form:form method="post" modelAttribute="orders" autocomplete="off"
-				class="sform">
+				class="frm">
 				<form:hidden path="amount" value="${sum}" />
-				<form:hidden path="id" value="${orderId}" />
+				<%-- <form:hidden path="id" value="${orderId}" /> --%>
 				<form:hidden path="status" value="1" />
 				<sec:authorize access="authenticated">
 					<sec:authentication property="user.id" var="currentid" />
@@ -163,8 +163,13 @@
 					<label for="userAddr3">2차주소</label>
 					<form:input path="userAddr3" required="required" />
 				</div>
-			</form:form><%-- 
-			<form:form method="post" modelAttribute="order_details" class="sform">
+				<div class="inputArea">
+					<button type="submit" class="btn order_btn" onclick="return confirm('주문 하시겠습니까?')"
+						style="font-size: 16px; width: 140px; height: 40px; background-color: #f9f0ff;">주문하기</button>
+				</div>
+			</form:form>
+
+			<%-- <form:form method="post" modelAttribute="order_details" class="frm">
 				<c:forEach var="b" items="${basket}">
 					<form:hidden path="orders" value="${orderId}" />
 					<form:hidden path="product" value="${b.product.id}" />
@@ -173,9 +178,37 @@
 				</c:forEach>
 			</form:form> --%>
 
-			<button type="submit" class="btn order_btn"
-				onclick="return confirm('주문 하시겠습니까?')"
-				style="font-size: 16px; width: 140px; height: 40px; background-color: #f9f0ff;">주문하기</button>
+			<%-- <c:forEach var="b" items="${basket}">
+				<input data-basket="${b.id}" />
+			</c:forEach> --%>
+
+
+			<!-- <script>
+				$(".order_btn").click(function() {
+					var confirm_val = confirm("주문하시겠습니까?")
+
+					if (confirm_val) {
+						/* var data = $(".frm").serialize(); */
+						/* var Arr = new Array(); */
+						var data = $(".frm").serialize();
+						
+						Arr.push($(this).attr("data-basket"));
+
+						$.ajax({
+							url : "/user/allorder",
+							type : "post",
+							data : data,
+							success : function(result) {
+								if (result == 1) {
+									location.href = "/user/orderlist";
+								} else {
+									alert("주문 실패");
+								}
+							}
+						});
+					}
+				})
+			</script> -->
 			<!-- <script>
 				$(function() {
 					$("#order_btn").click(

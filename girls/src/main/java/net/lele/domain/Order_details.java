@@ -15,16 +15,22 @@ public class Order_details {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	
-	@ManyToOne
-	@JoinColumn(name = "orderid")
-	Orders orders;
-	
+
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "orderid") Orders orders;
+	 */
+
+	String orderid;
+
 	@ManyToOne
 	@JoinColumn(name = "productid")
 	Product product;
-	
+
 	int count;
-	
-	int color;
+
+	@ManyToOne
+	@JoinColumn(name = "color")
+	Product_color color;
 }

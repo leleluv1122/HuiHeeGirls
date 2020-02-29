@@ -67,7 +67,7 @@
 					href="${R}guest/boardlist">자유게시판</a></li>
 				<li class="nav-item"><a class="nav-link" href="${R}user/basket"
 					style="margin-left: 20px;"><b>장바구니</b></a></li>
-				<li class="nav-item"><a class="nav-link" href="#"
+				<li class="nav-item"><a class="nav-link" href="${R}guest/qnalist"
 					style="margin-left: 20px;"><b>Q&A</b></a></li>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li class="nav-item"><a class="nav-link"
