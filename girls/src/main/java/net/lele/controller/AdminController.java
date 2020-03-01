@@ -51,4 +51,11 @@ public class AdminController {
 		productService.save(product);
 		return "redirect:/guest/index";
 	}
+	
+	@RequestMapping(value="/admin/orderlist")
+	public String orderlist(Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		
+		return "/admin/orderlist";
+	}
 }

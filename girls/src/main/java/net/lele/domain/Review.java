@@ -1,5 +1,7 @@
 package net.lele.domain;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,29 +13,37 @@ import lombok.Data;
 
 @Data
 @Entity
-@org.hibernate.annotations.DynamicUpdate
-public class Order_details {
+public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "orderid") Orders orders;
-	 */
-
-	String orderid;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "productid")
 	Product product;
-
-	int count;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "color")
 	Product_color color;
 	
-	int review;
+	@ManyToOne
+	@JoinColumn(name = "height")
+	Review_height height;
+	
+	@ManyToOne
+	@JoinColumn(name = "weight")
+	Review_weight weight;
+	
+	String detail;
+	int star;
+	
+	@ManyToOne
+	@JoinColumn(name = "size")
+	Review_size size;
+	
+	@ManyToOne
+	@JoinColumn(name = "userid")
+	User user;
+	
+	Timestamp write_date;
 }

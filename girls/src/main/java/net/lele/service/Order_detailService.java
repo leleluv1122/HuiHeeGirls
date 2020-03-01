@@ -22,6 +22,10 @@ public class Order_detailService {
 		return order_detailRepository.findOdById(id);
 	}
 
+	public Order_details findById(int id) {
+		return order_detailRepository.findById(id);
+	}
+	
 	public boolean hasErrors(Order_details order_detail, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return true;
@@ -35,6 +39,7 @@ public class Order_detailService {
 		oddd.setProduct(od.getProduct());
 		oddd.setCount(od.getCount());
 		oddd.setColor(od.getColor());
+		oddd.setReview(od.getReview());
 		order_detailRepository.save(oddd);
 	}
 

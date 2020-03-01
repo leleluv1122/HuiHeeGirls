@@ -10,4 +10,6 @@ import net.lele.domain.Order_details;
 public interface Order_detailRepository extends JpaRepository<Order_details, Integer> {
 	@Query("SELECT o FROM Order_details o WHERE o.orderid = ?1")
 	List<Order_details> findOdById(String id);
+	
+	Order_details findById(int id);
 }

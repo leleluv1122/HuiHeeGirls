@@ -73,7 +73,13 @@ table {
 						<c:forEach var="oo" items="${oo}">
 							<td>${oo.status.name }<br /> <c:if
 									test="${oo.status.id == '3'}">
-									<a href="#" class="btn btn-dark">후기작성</a>
+									<c:if test="${o.review == '0'}">
+										<a href="/user/review/${o.id}" class="btn btn-dark">후기작성</a>
+									</c:if>
+									<c:if test="${o.review == '1'}">
+										<button onclick="alert('이미 작성한 후기가 있습니다.')"
+											class="btn btn-dark">후기작성</button>
+									</c:if>
 								</c:if>
 							</td>
 						</c:forEach>

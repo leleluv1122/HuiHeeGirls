@@ -74,6 +74,19 @@
 					style="margin-right: 20px;"><b>Shoes&Bag</b></a></li> -->
 
 
+
+				<li class="nav-item"><a class="nav-link"
+					href="${R}guest/boardlist" style="margin-left: 20px;"><b>자유게시판</b></a></li>
+				<li class="nav-item"><a class="nav-link" href="${R}user/basket"
+					style="margin-left: 20px;"><b>장바구니</b></a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${R}guest/qnalist" style="margin-left: 20px;"><b>Q&A</b></a></li>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li class="nav-item"><a class="nav-link"
+						href="${R}admin/upload" style="margin-left: 20px;"><b>상품업로드</b></a></li>
+				</sec:authorize>
+				<li class="nav-item"><a class="nav-link"
+					href="${R}user/orderlist" style="margin-left: 20px;margin-right:20px;"><b>주문내역조회</b></a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
@@ -93,18 +106,6 @@
 							</a>
 						</sec:authorize>
 					</div></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${R}guest/boardlist" style="margin-left: 20px;"><b>자유게시판</b></a></li>
-				<li class="nav-item"><a class="nav-link" href="${R}user/basket"
-					style="margin-left: 20px;"><b>장바구니</b></a></li>
-				<li class="nav-item"><a class="nav-link" href="${R}guest/qnalist"
-					style="margin-left: 20px;"><b>Q&A</b></a></li>
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<li class="nav-item"><a class="nav-link"
-						href="${R}admin/upload" style="margin-left: 20px;"><b>상품업로드</b></a></li>
-				</sec:authorize>
-				<li class="nav-item"><a class="nav-link"
-					href="${R}user/orderlist" style="margin-left: 20px;"><b>주문내역조회</b></a></li>
 			</ul>
 		</div>
 		</nav>

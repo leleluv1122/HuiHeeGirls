@@ -96,7 +96,8 @@ td {
 				<c:when test="${count == 0}">
 					<tbody>
 						<tr>
-							<td colspan="9" align="center" style="height:70px;">장바구니가 비어있습니다</td>
+							<td colspan="9" align="center" style="height: 70px;">장바구니가
+								비어있습니다</td>
 						</tr>
 					</tbody>
 				</c:when>
@@ -251,10 +252,19 @@ td {
 					}
 				});
 			</script>
-			<a class="btn" href="/user/allorder"
-				style="font-size: 16px; width: 140px; height: 40px; background-color: #F3969A;">
-				<span class="glyphicon glyphicon-ok" style="margin: 4px;"></span>전체상품주문
-			</a>
+			<c:choose>
+				<c:when test="${count == 0}">
+					<a class="btn" href="${R}guest/productlist/1"
+						style="font-size: 16px; width: 140px; height: 40px; background-color: #F3969A;"><span
+						class="glyphicon glyphicon-search" style="margin: 4px;"></span>상품보러가기</a>
+				</c:when>
+				<c:otherwise>
+					<a class="btn" href="/user/allorder"
+						style="font-size: 16px; width: 140px; height: 40px; background-color: #F3969A;">
+						<span class="glyphicon glyphicon-ok" style="margin: 4px;"></span>전체상품주문
+					</a>
+				</c:otherwise>
+			</c:choose>
 
 			<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="order_btn"

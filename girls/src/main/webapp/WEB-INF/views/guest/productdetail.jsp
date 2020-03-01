@@ -23,6 +23,21 @@ function ShowPrice(){
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
+
+<!-- Bootstrap 4 -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- Start Rating -->
+<link href="${R}res/star-rating.css" media="all" rel="stylesheet"
+	type="text/css" />
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
+<!-- Bootstrap 4 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+<!-- Star Rating -->
+<script src="${R}res/star-rating.js" type="text/javascript">
+
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>상품 상세페이지</title>
@@ -43,6 +58,20 @@ ul.menu li {
 	list-style-type: none;
 	float: left;
 	margin-left: 20px;
+}
+
+.rev {
+	border: 3px solid #eee;
+	padding: 10px 20px;
+	margin: 20px 0;
+	display: none;
+}
+
+.rev span {
+	font-size: 12px;
+	font-weight: bold;
+	display: inline-block;
+	width: 90px;
 }
 </style>
 </head>
@@ -130,7 +159,7 @@ ul.menu li {
 		<hr />
 
 		<div>
-			<div id="prdDetail" style="height: 4100px; width: 1200px;">
+			<div id="prdDetail" style="height: 4100px; width: 1110px;">
 				<ul class="menu">
 					<li class="selected"><a href="#prdDetail"
 						style="color: black;">detail</a></li>
@@ -152,25 +181,60 @@ ul.menu li {
 			<br />
 			<hr />
 
-			<div id="prdReview" style="height: 100px; width: 1050px;">
+			<div id="prdReview" style="height: 500px; width: 1110px;">
 				<ul class="menu">
 					<li><a href="#prdDetail" style="color: black;">detail</a></li>
 					<li class="selected"><a href="#prdReview"
 						style="color: black;">review</a></li>
 					<li><a href="#prdQnA" style="color: black;">QnA</a></li>
 				</ul>
-				<div class="rev">
-					<table>
-						<tr>
-							<td></td>
-						</tr>
-					</table>
-				</div>
+				<br />
+				<hr />
+				<br />
+				<c:forEach var="r" items="${review}">
+					<span>별점</span>
+					<c:forEach var="rating" items="${ratingOptions}" varStatus="status"
+						begin="1" end="${r.star}">★</c:forEach>
+					<div class="rev">
+						<p>
+							<span>키</span>${r.height.name}</p>
+						<p>
+							<span>몸무게</span>${r.weight.name}</p>
+						<p>
+							<span>평소사이즈</span>${r.size.name}</p>
+						<p>
+							<span>선택한 옵션</span>color: <b>${r.color.color}</b>
+						</p>
+						<button type="button" class="btn cancel_btn">- 접기</button>
+						<script>
+							$(".cancel_btn").click(function() {
+								$(".rev").slideUp();
+								$(".orderOpne_bnt").slideDown();
+							});
+						</script>
+					</div>
+					<p>
+						<span style="margin-left: 20px;">${r.detail}</span>
+					</p>
+					<div class="orderOpne">
+						<button type="button" class="btn orderOpne_bnt">
+							<span class="glyphicon glyphicon-plus-sign" style="margin: 4px;"></span>더보기
+						</button>
+						<script>
+							$(".orderOpne_bnt").click(function() {
+								$(".rev").slideDown();
+								$(".orderOpne_bnt").slideUp();
+							});
+						</script>
+					</div>
+					<hr />
+					<br />
+				</c:forEach>
 			</div>
 			<br />
 			<hr />
 
-			<div id="prdQnA" style="height: 700px; width: 1200px;">
+			<div id="prdQnA" style="height: 700px; width: 1110px;">
 				<ul class="menu">
 					<li><a href="#prdDetail" style="color: black;">detail</a></li>
 					<li><a href="#prdReview" style="color: black;">review</a></li>

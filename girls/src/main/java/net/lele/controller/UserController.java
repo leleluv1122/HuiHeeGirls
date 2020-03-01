@@ -2,7 +2,9 @@ package net.lele.controller;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,12 +21,18 @@ import net.lele.domain.Basket;
 import net.lele.domain.Board;
 import net.lele.domain.Order_details;
 import net.lele.domain.Orders;
+import net.lele.domain.Review;
 import net.lele.repository.Order_detailRepository;
 import net.lele.service.BasketService;
 import net.lele.service.BoardService;
 import net.lele.service.CategoryService;
 import net.lele.service.OrderService;
 import net.lele.service.Order_detailService;
+import net.lele.service.Product_colorService;
+import net.lele.service.ReviewService;
+import net.lele.service.Review_heightService;
+import net.lele.service.Review_sizeService;
+import net.lele.service.Review_weightService;
 import net.lele.service.UserService;
 
 @Controller
@@ -42,6 +50,16 @@ public class UserController {
 	OrderService orderService;
 	@Autowired
 	Order_detailService order_detailService;
+	@Autowired
+	Product_colorService product_colorService;
+	@Autowired
+	Review_heightService review_heightService;
+	@Autowired
+	ReviewService reviewService;
+	@Autowired
+	Review_weightService review_weightService;
+	@Autowired
+	Review_sizeService review_sizeService;
 	@Autowired
 	Order_detailRepository order_detailRepository;
 
@@ -118,6 +136,7 @@ public class UserController {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("basket", basketService.findByUserUserId(userId));
+		model.addAttribute("user", userService.findAll());
 		return "user/allorder";
 	}
 
@@ -143,6 +162,7 @@ public class UserController {
 			o.setColor(b.get(i).getColor());
 			o.setCount(b.get(i).getCount());
 			o.setOrderid(orderId);
+			o.setReview(0);
 			/* o.setOrders(orders.getId()); */
 			order_detailService.save(o);
 		}
@@ -162,7 +182,7 @@ public class UserController {
 		model.addAttribute("count", orderService.countByUserUserId(userId));
 		return "user/orderlist";
 	}
-	
+
 	@RequestMapping(value = "user/orderdetail/{id}")
 	public String orderdetail(@PathVariable("id") String id, Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
@@ -175,6 +195,36 @@ public class UserController {
 	public String ordercancle(@PathVariable("id") int id, Model model, Orders orders) throws Exception {
 		orderService.delete(id);
 		return "redirect:/user/orderlist";
+	}
+
+	@RequestMapping(value = "user/review/{id}")
+	public String review(@PathVariable("id") int id, Model model, Review review) throws Exception {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("order", order_detailService.findById(id));
+		model.addAttribute("height", review_heightService.findAll());
+		model.addAttribute("weight", review_weightService.findAll());
+		model.addAttribute("size", review_sizeService.findAll());
+
+		Map ratingOptions = new HashMap();
+		ratingOptions.put(5, "★★★★★");
+		ratingOptions.put(4, "★★★★☆");
+		ratingOptions.put(3, "★★★☆☆");
+		ratingOptions.put(2, "★★☆☆☆");
+		ratingOptions.put(1, "★☆☆☆☆");
+		ratingOptions.put(0, "☆☆☆☆☆");
+		model.addAttribute("ratingOptions", ratingOptions);
+
+		return "user/review";
+	}
+	
+	@RequestMapping(value = "user/review/{id}", method = RequestMethod.POST)
+	public String review(@PathVariable("id") int id, Model model, Review review, BindingResult bindingResult) throws Exception {
+		model.addAttribute("category", categoryService.findAll());
+		reviewService.save(review);
+		Order_details o = order_detailService.findById(id);
+		o.setReview(1);
+		order_detailRepository.save(o);
+		return "redirect:/user/index";
 	}
 }
 

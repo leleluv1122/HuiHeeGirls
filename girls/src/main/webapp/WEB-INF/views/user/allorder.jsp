@@ -132,8 +132,29 @@
 			</div>
 		</div>
 		<br />
+		<sec:authentication property="user.name" var="name" />
+		<sec:authentication property="user.email" var="email" />
+		<sec:authentication property="user.phone" var="phone" />
+		<sec:authentication property="user.address" var="address" />
+		<sec:authentication property="user.address_detail"
+			var="address_detail" />
+
+		<%-- <div class="orderInfo">
+			<h3>주문자 정보</h3>
+			<label>주문자</label> <span>${name}</span>
+		</div>
+		<br /> --%>
 
 		<div class="orderInfo">
+			<h3>배송지 정보</h3>
+
+			<!-- <p class="chkAdd">
+				배송지 정보가 주문자 정보와 동일합니까? &nbsp;&nbsp;
+				<input id="sameaddr0" name="sameaddr" value="T" type="radio" checked="checked">
+				<label for="sameaddr0">주문자 정보와 동일</label>&nbsp;&nbsp; 
+				<input id="sameaddr1" name="sameaddr" value="F" type="radio">
+				<label for="sameaddr1" onclick="clearForm()">새로운배송지</label>
+			</p> -->
 			<form:form method="post" modelAttribute="orders" autocomplete="off"
 				class="frm">
 				<form:hidden path="amount" value="${sum}" />
@@ -145,11 +166,11 @@
 				</sec:authorize>
 				<div class="inputArea">
 					<label for="">수령인</label>
-					<form:input path="orderRec" required="required" />
+					<form:input path="orderRec" value="${name}" required="required" />
 				</div>
 				<div class="inputArea">
 					<label for="orderPhon">수령인 연락처</label>
-					<form:input path="orderPhon" required="required" />
+					<form:input path="orderPhon" value="${phone}" required="required" />
 				</div>
 				<div class="inputArea">
 					<label for="userAddr1">우편번호</label>
@@ -157,14 +178,16 @@
 				</div>
 				<div class="inputArea">
 					<label for="userAddr2">1차주소</label>
-					<form:input path="userAddr2" required="required" />
+					<form:input path="userAddr2" value="${address}" required="required" />
 				</div>
 				<div class="inputArea">
 					<label for="userAddr3">2차주소</label>
-					<form:input path="userAddr3" required="required" />
+					<form:input path="userAddr3" value="${address_detail}"
+						required="required" />
 				</div>
 				<div class="inputArea">
-					<button type="submit" class="btn order_btn" onclick="return confirm('주문 하시겠습니까?')"
+					<button type="submit" class="btn order_btn"
+						onclick="return confirm('주문 하시겠습니까?')"
 						style="font-size: 16px; width: 140px; height: 40px; background-color: #f9f0ff;">주문하기</button>
 				</div>
 			</form:form>

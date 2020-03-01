@@ -21,6 +21,10 @@ public class Product_colorService {
 		return product_colorRepository.findByProductId(id);
 	}
 	
+	public Product_color findById(int id){
+		return product_colorRepository.findById(id);
+	}
+	
 	public void save(Product_color pcolor) {
 		Product_color pc = new Product_color();
 		pc.setProduct(pcolor.getProduct());

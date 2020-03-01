@@ -39,9 +39,13 @@
 
 		<c:choose>
 			<c:when test="${count == 0 }">
-				<br /><br /><br />
+				<br />
+				<br />
+				<br />
 				<label>주문내역이 없습니다</label>
-				<br /><br /><br />
+				<br />
+				<br />
+				<br />
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="o" items="${ord}">
@@ -63,11 +67,14 @@
 									<fmt:formatNumber value="${o.amount}" pattern="###,###,###" />
 									원
 								</p>
+
 								<p>
 									<span>주문상태</span>${o.status.name}</p>
-								<a href="/user/ordercancle/${o.rid}" class="btn btn-dark" 
-								onclick="if(!confirm('주문을 취소 하시겠습니까?')){return false;}">주문취소</a>
-								<%-- <a href="/user/orderdetail/${o.id}">주문 상세..음모라써</a> --%>
+								<c:if test="${o.status.id=='1' }">
+									<a href="/user/ordercancle/${o.rid}" class="btn btn-dark"
+										onclick="if(!confirm('주문을 취소 하시겠습니까?')){return false;}">주문취소</a>
+									<%-- <a href="/user/orderdetail/${o.id}">주문 상세..음모라써</a> --%>
+								</c:if>
 							</div>
 						</c:if>
 					</sec:authorize>
