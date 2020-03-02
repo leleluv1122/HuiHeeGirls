@@ -48,15 +48,15 @@
 				<li class="nav-item"><a class="nav-link"
 					href="${R}guest/boardlist">자유게시판</a></li>
 				<li class="nav-item"><a class="nav-link" href="${R}user/basket"
-					style="margin-left: 20px;"><b>장바구니</b></a></li>
+					style="margin-left: 15px;"><b>장바구니</b></a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${R}guest/qnalist" style="margin-left: 20px;"><b>Q&A</b></a></li>
+					href="${R}guest/qnalist" style="margin-left: 15px;"><b>Q&A</b></a></li>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li class="nav-item"><a class="nav-link"
-						href="${R}admin/upload" style="margin-left: 20px;"><b>상품업로드</b></a></li>
+						href="${R}admin/index" style="margin-left: 15px;"><b>관리자</b></a></li>
 				</sec:authorize>
 				<li class="nav-item"><a class="nav-link"
-					href="${R}user/orderlist" style="margin-left: 20px; margin-right:20px;"><b>주문내역조회</b></a></li>
+					href="${R}user/orderlist" style="margin-left: 15px; margin-right:15px;"><b>주문내역조회</b></a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"

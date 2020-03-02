@@ -2,9 +2,7 @@ package net.lele.controller;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +30,7 @@ import net.lele.service.Product_colorService;
 import net.lele.service.ReviewService;
 import net.lele.service.Review_heightService;
 import net.lele.service.Review_sizeService;
+import net.lele.service.Review_starService;
 import net.lele.service.Review_weightService;
 import net.lele.service.UserService;
 
@@ -62,7 +61,9 @@ public class UserController {
 	Review_sizeService review_sizeService;
 	@Autowired
 	Order_detailRepository order_detailRepository;
-
+	@Autowired
+	Review_starService review_starService;
+	
 	@RequestMapping("user/index")
 	public String index(Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
@@ -204,15 +205,7 @@ public class UserController {
 		model.addAttribute("height", review_heightService.findAll());
 		model.addAttribute("weight", review_weightService.findAll());
 		model.addAttribute("size", review_sizeService.findAll());
-
-		Map ratingOptions = new HashMap();
-		ratingOptions.put(5, "★★★★★");
-		ratingOptions.put(4, "★★★★☆");
-		ratingOptions.put(3, "★★★☆☆");
-		ratingOptions.put(2, "★★☆☆☆");
-		ratingOptions.put(1, "★☆☆☆☆");
-		ratingOptions.put(0, "☆☆☆☆☆");
-		model.addAttribute("ratingOptions", ratingOptions);
+		model.addAttribute("star", review_starService.findAll());
 
 		return "user/review";
 	}

@@ -13,6 +13,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@org.hibernate.annotations.DynamicUpdate
 public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

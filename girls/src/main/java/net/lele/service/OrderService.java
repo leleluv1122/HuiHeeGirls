@@ -19,6 +19,10 @@ public class OrderService {
 		return orderRepository.findByUserUserId(userId);
 	}
 	
+	public Orders findByRid(int id) {
+		return orderRepository.findByRid(id);
+	}
+	
 	public List<Orders> findById(String id){
 		return orderRepository.findById(id);
 	}

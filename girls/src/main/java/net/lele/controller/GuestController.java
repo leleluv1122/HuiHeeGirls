@@ -1,8 +1,6 @@
 package net.lele.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -30,6 +28,7 @@ import net.lele.service.Product_detailService;
 import net.lele.service.Product_qnaService;
 import net.lele.service.Qna_titleService;
 import net.lele.service.ReviewService;
+import net.lele.service.Review_starService;
 import net.lele.service.UserService;
 import net.lele.utils.EncryptionUtils;
 
@@ -58,6 +57,8 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 	Qna_titleService qs;
 	@Autowired
 	ReviewService rs;
+	@Autowired
+	Review_starService review_starService;
 
 	@RequestMapping({ "/", "guest/index" })
 	public String index(Model model) {
@@ -86,15 +87,8 @@ public class GuestController { // 로그인 하지 않은 사용자를 위한 �
 		model.addAttribute("qna", pq.findAllByOrderByIdDesc());
 		model.addAttribute("idd", id);
 		model.addAttribute("review", rs.findByProductId(id));
+		model.addAttribute("star", review_starService.findAll());
 
-		Map ratingOptions = new HashMap();
-		ratingOptions.put(5, "★★★★★  아주 좋아요");
-		ratingOptions.put(4, "★★★★☆  맘에 들어요");
-		ratingOptions.put(3, "★★★☆☆  보통이에요");
-		ratingOptions.put(2, "★★☆☆☆  그냥 그래요");
-		ratingOptions.put(1, "★☆☆☆☆  별로에요");
-		ratingOptions.put(0, "☆☆☆☆☆");
-		model.addAttribute("ratingOptions", ratingOptions);
 		return "guest/productdetail";
 	}
 

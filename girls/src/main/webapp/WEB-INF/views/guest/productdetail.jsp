@@ -23,6 +23,8 @@ function ShowPrice(){
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap 4 -->
 <link rel="stylesheet"
@@ -193,8 +195,9 @@ ul.menu li {
 				<br />
 				<c:forEach var="r" items="${review}">
 					<span>별점</span>
-					<c:forEach var="rating" items="${ratingOptions}" varStatus="status"
-						begin="1" end="${r.star}">★</c:forEach>
+					${r.star.name }
+					<%-- <c:forEach var="rating" items="${ratingOptions}" varStatus="status"
+						begin="1" end="${r.star}">★</c:forEach> --%>
 					<div class="rev">
 						<p>
 							<span>키</span>${r.height.name}</p>

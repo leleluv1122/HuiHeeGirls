@@ -35,7 +35,10 @@ public class Review {
 	Review_weight weight;
 	
 	String detail;
-	int star;
+	
+	@ManyToOne
+	@JoinColumn(name = "star")
+	Review_star star;
 	
 	@ManyToOne
 	@JoinColumn(name = "size")

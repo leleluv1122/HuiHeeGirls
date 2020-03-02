@@ -68,7 +68,7 @@
 				<form:hidden path="color" value="${order.color.id}" />
 				<div class="inputArea">
 					<form:select path="star" class="form-control w200">
-						<form:options items="${ratingOptions}" />
+						<form:options items="${star}" />
 					</form:select>
 				</div>
 				<div class="inputArea">

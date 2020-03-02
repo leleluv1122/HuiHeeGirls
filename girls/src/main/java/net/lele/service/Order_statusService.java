@@ -13,7 +13,7 @@ public class Order_statusService {
 	@Autowired
 	Order_statusRepository os;
 	
-	List<Order_status> findAll(){
+	public List<Order_status> findAll(){
 		return os.findAll();
 	}
 }
