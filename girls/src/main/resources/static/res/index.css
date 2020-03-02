@@ -67,8 +67,7 @@ select.form-control.w400 {
 div.container {
 	margin-left: auto;
 	margin-right: auto;
-	/* 
-	width: 900px; */
+	width: auto;
 }
 
 img {
@@ -98,7 +97,7 @@ div.footer img {
 }
 
 div.footer div:nth-child(2) {
-	font: normal 9pt 援대┝;
+	font: normal 9pt arial;
 	color: #666;
 	margin-top: 10px;
 }

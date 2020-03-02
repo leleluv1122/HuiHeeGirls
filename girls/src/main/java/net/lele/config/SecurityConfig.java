@@ -33,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // 모든 사용자 ㅇㅅㅇ
         	.antMatchers("/", "/images/**", "/resources/**", "/resources/images/**")    
         	.permitAll()
+        	.antMatchers("/", "/res/**", "/resources/static/**", "/resources/static/res/**")    
+        	.permitAll()
             .antMatchers("/**").authenticated();
         // /** 패턴은 로그인된 사용자에게만 허용
 
