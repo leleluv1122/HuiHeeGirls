@@ -36,4 +36,7 @@ public class UserRegistrationModel {
 	
 	@NotEmpty(message = "상세주소를 입력하세요")
 	String address_detail;
+	
+	int postcode;
+	String addrplus;
 }

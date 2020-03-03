@@ -63,6 +63,8 @@ public class UserService {
 		user.setName(userModel.getName());
 		user.setPhone(userModel.getPhone());
 		user.setAddress_detail(userModel.getAddress_detail());
+		user.setPostcode(userModel.getPostcode());
+		user.setAddrplus(userModel.getAddrplus());
 		return user;
 	}
 

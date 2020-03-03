@@ -24,4 +24,6 @@ public class User {
 	String phone;
 	String address;
 	String address_detail;
+	int postcode;
+	String addrplus;
 }

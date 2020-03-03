@@ -136,6 +136,7 @@
 		<sec:authentication property="user.email" var="email" />
 		<sec:authentication property="user.phone" var="phone" />
 		<sec:authentication property="user.address" var="address" />
+		<sec:authentication property="user.postcode" var="postcode" />
 		<sec:authentication property="user.address_detail"
 			var="address_detail" />
 
@@ -174,7 +175,7 @@
 				</div>
 				<div class="inputArea">
 					<label for="userAddr1">우편번호</label>
-					<form:input path="userAddr1" required="required" />
+					<form:input path="userAddr1" value="${postcode}" required="required" />
 				</div>
 				<div class="inputArea">
 					<label for="userAddr2">1차주소</label>
